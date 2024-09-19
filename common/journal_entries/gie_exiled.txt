@@ -276,44 +276,54 @@ je_gie_return = {
    }
 
 	complete = {
-		has_diplomatic_pact = {
-			who = scope:return_target
-			type = humiliation
-		}
-		or = {
-			and = {
-				has_law = law_type:law_monarchy
-				scope:return_target = {
-					has_law = law_type:law_monarchy
+		any_country = {
+			has_diplomatic_pact = {
+				who = root
+				type = gie_return_target
+			}
+			root = {
+				has_diplomatic_pact = {
+					who = prev
+					type = humiliation
+				}
+
+				or = {
+					and = {
+						has_law = law_type:law_monarchy
+						prev = {
+							has_law = law_type:law_monarchy
+						}
+					}
+					and = {
+						has_law = law_type:law_presidential_republic
+						prev = {
+							has_law = law_type:law_presidential_republic
+						}
+					}
+					and = {
+						has_law = law_type:law_parliamentary_republic
+						prev = {
+							has_law = law_type:law_parliamentary_republic
+						}
+					}
+					and = {
+						has_law = law_type:law_council_republic
+						prev = {
+							has_law = law_type:law_council_republic
+						}
+					}
+					and = {
+						has_law = law_type:law_theocracy
+						prev = {
+							has_law = law_type:law_theocracy
+						}
+					}
 				}
 			}
-			and = {
-				has_law = law_type:law_presidential_republic
-				scope:return_target = {
-					has_law = law_type:law_presidential_republic
-				}
-			}
-			and = {
-				has_law = law_type:law_parliamentary_republic
-				scope:return_target = {
-					has_law = law_type:law_parliamentary_republic
-				}
-			}
-			and = {
-				has_law = law_type:law_council_republic
-				scope:return_target = {
-					has_law = law_type:law_council_republic
-				}
-			}
-			and = {
-				has_law = law_type:law_theocracy
-				scope:return_target = {
-					has_law = law_type:law_theocracy
-				}
-			}
+			count > 0	
 		}
 	}
-
+	
 	scripted_button = je_gie_return_sb
 	#add war goals if in diplo-play
 	scripted_button = je_gie_return_in_diplo_sb
@@ -353,9 +363,11 @@ je_gie_return = {
 	#civl war nation switch check
 	on_weekly_pulse = {
 		effect = {
-			create_diplomatic_pact = {
-				country = scope:return_target
-				type = gie_return_target
+			scope:return_target = {
+				create_diplomatic_pact = {
+					country = root
+					type = gie_return_target
+				}
 			}
 			# if = {
 			# 	limit = {
