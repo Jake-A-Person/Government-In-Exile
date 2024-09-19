@@ -1,0 +1,32 @@
+﻿l_english:
+#clu cad unification coped from canida unfication
+gie_exiled.1.t:0 "The home land has been overun"
+ gie_exiled.1.f:0 "The revolutionary government has taken over the homeland and some of the ministers of central government are ready to depart from one of the last ports where shall they go."
+ gie_exiled.1.d:0 "The homeland has been lost but our empire beyond the sea remains loyal where shall we set up a new government."
+
+gie_exiled.1.a:0 "To [SCOPE.sCountry('option1').GetName]"
+gie_exiled.1.b:0 "To [SCOPE.sCountry('option2').GetName]"
+gie_exiled.1.c:0 "To [SCOPE.sCountry('option3').GetName]"
+gie_exiled.1.d:0  "To the direct colonies"
+gie_exiled.1.e:0 "We shall fall with our people"
+
+gie_exiled.2.t:0 "Arrived at [ROOT.GetCountry.GetName]"
+gie_exiled.2.f:0 "The ministers that survived the onslaught of the revolution have arrived."
+gie_exiled.2.f2:0 "As [SCOPE.sCharacter('overlord_ruler').GetFullName] boarded the ship port a report was received that [SCOPE.sCharacter('overlord_heir').GetFullName] has been captured any rescue mission would require the use of the royal guard putting [SCOPE.sCharacter('overlord_ruler').GetFullName] in mortal danger."
+gie_exiled.2.d:0 "This new government is currently moving to assert authority over the colonies beyond the sea."
+gie_exiled.2.d2:0 "King or heir."
+gie_exiled.2.a:0 "Onwards"
+gie_exiled.2.b:0 "[SCOPE.sCharacter('overlord_heir').GetFullName] must be saved at all cost"
+gie_exiled.2.c:0 "[SCOPE.sCharacter('overlord_ruler').GetFullName] must live at all cost"
+
+gie_exiled.3.t:0 "The Irish Question"
+gie_exiled.3.f:0 "The long neglect of Ireland has led it to declare independence"
+gie_exiled.3.d:0 "An Irish government has been declared we can accept this or try and war with it with our broken armed forces"
+gie_exiled.3.a:0 "To war"
+gie_exiled.3.b:0 "Accept their independence"
+
+gie_exiled.4.t:0 "Union In Exile"
+gie_exiled.4:f:0 "The government in exile wishes to unite the minority ruled African states."
+gie_exiled.4:d:0 "Should we accepet union with the government in exile."
+gie_exiled.4:a:0 "To hell with the government in exile"
+gie_exiled.4:b:0 "Unity shall forge a new [SCOPE.sCulture('primary_culture_scope').GetName] nation"

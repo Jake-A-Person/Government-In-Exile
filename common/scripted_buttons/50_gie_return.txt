@@ -1,0 +1,181 @@
+﻿je_gie_return_sb = {
+	name = "je_gie_return_sb"
+	desc = "je_gie_return_sb_desc"
+
+	visible = { 
+		or = {
+			not = {
+				is_diplomatic_play_enemy_of = scope:return_target
+			}
+			has_variable = return_war
+		}
+	}
+
+	possible = {
+        not = {has_truce_with = scope:return_target}
+		not = {
+			has_variable = return_war
+		}
+	}
+
+	effect = {
+		create_diplomatic_play = {
+			type = dp_humiliation
+			target_country = scope:return_target
+			war = no
+			add_war_goal = {
+				holder = root
+				target_country = scope:return_target
+				type = regime_change
+				primary_demand = yes
+			}
+		}
+
+		set_variable = return_war
+		add_journal_entry = {
+			type = je_gie_return_war
+		}
+	}
+}
+
+je_gie_return_in_diplo_sb = {
+	name = "je_gie_return_in_diplo_sb"
+	desc = "je_gie_return_in_diplo_sb_desc"
+
+	visible = { 		
+		is_diplomatic_play_enemy_of = scope:return_target
+	}
+
+	possible = {
+		not = {
+			has_variable = return_war
+		}
+	}
+
+	effect = {
+		random_diplomatic_play = {
+			save_scope_as = return_diplo_play
+			limit = {
+				or = {
+					and = {
+						initiator = {
+							is_diplomatic_play_ally_of = scope:return_target
+						}
+						target = {
+							is_diplomatic_play_ally_of = root
+						}
+					}
+					and = {
+						initiator = {
+							is_diplomatic_play_ally_of = root
+						}
+						target = {
+							is_diplomatic_play_ally_of = scope:return_target
+						}
+					}
+				}
+			}
+			add_war_goal = {
+				holder = root
+				type = humiliation
+				target_country = scope:return_target 
+			}
+			add_war_goal = {
+				holder = root
+				type = regime_change
+				target_country = scope:return_target 
+			}
+		}
+
+		set_variable = return_war
+		add_journal_entry = {
+			type = je_gie_return_war
+		}
+	}
+	ai_chance = {
+		base = 100
+		
+	}
+}
+
+je_gie_africa_union_sb = {
+	name = "je_gie_africa_union_sb"
+	desc = "je_gie_africa_union_sb_desc"
+	visible = { 
+		any_subject_or_below = {
+			or = {
+				has_variable = senegal_subject_var
+				has_variable = niger_subject_var
+				has_variable = ethiopia_subject_var
+				has_variable = southern_africa_subject_var
+				has_variable = congo_subject_var
+			}
+		}
+	}
+	possible = {
+		NOT = {
+			has_modifier = exiled_africa_union
+		}
+	}
+
+	effect = {
+		random_subject_or_below = {
+			limit = {
+				or = {
+					has_variable = senegal_subject_var
+					has_variable = niger_subject_var
+					has_variable = ethiopia_subject_var
+					has_variable = southern_africa_subject_var
+					has_variable = congo_subject_var
+				}
+			}
+			trigger_event = gie_exiled.4
+		}
+		add_modifier = {
+			name = exiled_africa_union
+			years = 2
+		}
+	}
+	ai_chance = {
+		base = 100
+	}
+}
+
+je_gie_africa_assim_on_sb = {
+	name = "je_gie_africa_assim_on_sb"
+	desc = "je_gie_africa_assim_on_sb_desc"
+
+	visible = { not = {has_modifier = africa_assim} }
+
+	possible = {
+	}
+
+	effect = {
+		add_modifier = {
+			name = africa_assim
+		}
+		add_modifier = {
+			name = africa_assim_cost
+			multiplier = money_amount_multiplier_medium
+		}
+	}
+
+	ai_chance = {
+		base = 100
+	}
+}
+
+je_gie_africa_assim_off_sb = {
+	name = "je_gie_africa_assim_off_sb"
+	desc = "je_gie_africa_assim_off_sb_desc"
+
+	visible = {has_modifier = africa_assim}
+
+	possible = {
+	}
+
+	effect = {
+		remove_modifier = africa_assim
+		remove_modifier = africa_assim_cost
+	}
+}

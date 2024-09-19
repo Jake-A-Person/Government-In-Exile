@@ -1,0 +1,536 @@
+﻿namespace = gie_exiled
+
+#option to run away to the colonial holdings
+gie_exiled.1 = {
+	type = country_event
+	placement = ROOT
+
+	title = gie_exiled.1.t
+	desc = gie_exiled.1.d
+	flavor = gie_exiled.1.f
+
+	event_image = {
+		video = "ep1_transfer_of_authority"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	duration = 1
+
+	trigger = {
+
+	}
+
+	immediate = {
+		#get flee options
+		ordered_subject_or_below = {
+			limit = {
+				is_subject_of = root
+			}
+			order_by = gdp	
+			this = {	
+			save_scope_as = option1
+			}
+		}
+		ordered_subject_or_below = {
+			limit = {
+				is_subject_of = root
+				not = { this = scope:option1}
+			}
+			order_by = gdp		
+			save_scope_as = option2
+		}
+		ordered_subject_or_below = {
+			limit = {
+				is_subject_of = root
+				not = { this = scope:option1}
+				not = { this = scope:option2}
+			}
+			order_by = gdp		
+			save_scope_as = option3
+		}	
+	
+	}
+
+	option = {
+		#flee to best gdp
+		name = gie_exiled.1.a
+		default_option = yes
+		play_as = scope:option1
+		scope:option1 = {
+			trigger_event = {
+				id = gie_exiled.2
+
+			}
+		}
+		trigger = {
+			any_subject_or_below = {
+				is_subject_of = root
+				count > 0
+			}
+		}
+	}
+
+	option = {
+		#flee to second best gdp
+		name = gie_exiled.1.b
+		play_as = scope:option2
+		scope:option2 = {
+			trigger_event = {
+				id = gie_exiled.2
+
+			}
+		}	
+		trigger = {
+			any_subject_or_below = {
+				is_subject_of = root
+				count > 1
+			}
+		}
+	}
+
+	option = {
+		#flee to second best gdp
+		name = gie_exiled.1.c
+		play_as = scope:option3
+		scope:option3 = {
+			trigger_event = {
+				id = gie_exiled.2
+
+			}
+		}	
+		trigger = {
+			any_subject_or_below = {
+				is_subject_of = root
+				count > 2
+			}
+		}
+	}
+
+	option = {
+		name = gie_exiled.1.d
+		trigger = {
+			any_state = {
+				owner = root
+				state_in_africa = yes
+				count > 0
+			}
+		}
+		random_state = {
+			limit = {
+				owner = root
+				state_in_africa = yes
+				is_sea_adjacent = yes
+			}
+			save_scope_as = exile_capital
+		}
+		create_dynamic_country = {
+			origin = root
+			tier = principality
+			capital = scope:exile_capital
+			on_created = { 
+				set_variable = senegal_subject_var #for africa union events
+				set_variable = new_dyn_exile_var
+			}
+		}
+		random_country = {
+			limit = {
+				and = {
+				has_variable = senegal_subject_var
+				has_variable = new_dyn_exile_var
+				}
+			}
+			root = {
+				create_diplomatic_pact = {
+					country = prev
+					type = protectorate
+				}
+				create_diplomatic_pact = {
+					country = prev
+					type = enforce_military_access
+				}		
+			}
+			remove_variable = new_dyn_exile_var
+			root = {
+				play_as = prev
+			}
+			trigger_event = {
+				id = gie_exiled.2
+			}
+		}
+	}
+
+	option = {
+		name = gie_exiled.1.e
+	}
+
+
+}
+
+#arrive at colonial holding
+gie_exiled.2 = {
+	type = country_event
+	placement = ROOT
+
+	title = gie_exiled.2.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = gie_exiled.2.d2
+				trigger = {
+					NOT = {
+						overlord = {
+							#has heir chose to kill one
+							has_law = law_type:law_monarchy
+							exists = heir
+						}
+					}
+				}
+			}
+			triggered_desc = {
+				desc = gie_exiled.2.d
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	flavor = {
+		first_valid = {
+			triggered_desc = {
+				desc = gie_exiled.2.acw_je_events.1.f2
+				trigger = {
+					NOT = {
+						overlord = {
+							has_law = law_type:law_monarchy
+							exists = heir
+						}
+					}
+				}
+			}
+			triggered_desc = {
+				desc = gie_exiled.2.f
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+
+	event_image = {
+		video = "ep1_transfer_of_authority"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	duration = 1
+
+	trigger = {
+	}
+
+	immediate = {
+
+		overlord = {
+
+			ruler = {
+				save_scope_as = overlord_ruler
+			}
+
+			heir = {
+				save_scope_as = overlord_heir
+			}
+
+			# every_state = {
+			# 	limit = {
+			# 		owner = prev
+			# 		market_access = 0
+			# 		not = {
+			# 			state_region = {
+			# 				is_homeland = irish
+			# 			}
+			# 		}
+			# 	}
+			# 	set_state_owner = root
+			# }
+			
+			remove_modifier = nuke_convoys
+
+
+			if = {
+				#heir is handled by being killed or ruler killed in the bellow an event (idk how to make the hair of old nation the heir of a new nation)
+				limit = { has_law = law_type:law_monarchy }
+				ROOT = {
+					activate_law = law_type:law_monarchy
+				}
+			}
+			else_if = {
+				limit = {has_law = law_type:law_presidential_republic }
+				ROOT = {
+					activate_law = law_type:law_presidential_republic
+				}
+			}
+			else_if = {
+				limit = {has_law = law_type:law_parliamentary_republic }
+				ROOT = {
+					activate_law = law_type:law_parliamentary_republic
+				}
+			}
+			else_if = {
+				limit = {has_law = law_type:law_theocracy }
+				ROOT = {
+					activate_law = law_type:law_theocracy
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = {
+			not = {
+				exists = heir
+			}
+		}
+		name = gie_exiled.2.a
+		default_option = yes
+
+		
+		
+		overlord = {
+			ruler = {
+				transfer_character = ROOT
+				set_character_as_ruler = yes
+			}
+		}
+
+		add_modifier = {
+			name = collapse_of_imp
+			years = 20
+			is_decaying = yes
+		}
+
+		add_journal_entry = {
+			type = je_gie_retreat
+		}
+	}
+
+	#king is dead
+	option = {
+		name = gie_exiled.2.b
+		default_option = yes
+
+		trigger = {
+			exists = heir
+		}
+		scope:overlord_ruler = {
+			kill_character = yes
+		}
+		scope:overlord_heir = {
+			transfer_character = ROOT
+			set_character_as_ruler = yes
+		}
+		add_modifier = {
+			name = collapse_of_imp
+			years = 20
+			is_decaying = yes
+		}
+
+		add_journal_entry = {
+			type = je_gie_retreat
+		}
+	}
+
+	#heir is dead
+	option = {
+		name = gie_exiled.2.c
+
+		trigger = {
+			exists = heir
+		}
+		scope:overlord_ruler = {
+			transfer_character = ROOT
+			set_character_as_ruler = yes
+		}
+		scope:overlord_heir = {
+			kill_character = yes
+		}
+		add_modifier = {
+			name = collapse_of_imp
+			years = 20
+			is_decaying = yes
+		}
+
+		add_journal_entry = {
+			type = je_gie_retreat
+		}	
+	}
+}
+
+#irish independence
+gie_exiled.3 = {
+	type = country_event
+	placement = ROOT
+
+	title = gie_exiled.3.t
+	desc = gie_exiled.3.d
+	flavor = gie_exiled.3.f
+
+	event_image = {
+		video = "ep1_transfer_of_authority"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	duration = 1
+
+	trigger = {
+	}
+
+	immediate = {
+	if = {
+		limit = {
+			exists = c:IRE
+		}
+		every_state = {
+		limit = {
+			owner = root
+				state_region = {
+					is_homeland = irish
+				}
+			}
+			set_state_owner = c:IRE
+		}
+	}
+	else = {
+		random_state = {
+			limit = {
+				owner = root
+					state_region = {
+						is_homeland = irish
+					}
+				}
+				save_scope_as = free_ierland_capital 
+			}
+		create_country = {
+			tag = IRE
+			origin = this
+			state = scope:free_ierland_capital
+			on_created = {
+				#can have universal uuffrage
+				if = {
+					limit = {has_technology_researched = egalitarianism}
+					activate_law = law_type:law_universal_suffrage
+				}
+				else = {
+					activate_law = law_type:law_census_voting
+				}
+				if = {
+					limit = {has_technology_researched = feminism}
+					activate_law = law_type:law_womens_suffrage
+				}
+				else = {
+					activate_law = law_type:law_women_own_property
+				}
+				activate_law = law_type:law_presidential_republic
+				activate_law = law_type:law_state_religion
+				activate_law = law_type:law_per_capita_based_taxation
+				activate_law = law_type:law_elected_bureaucrats
+				activate_law = law_type:law_right_of_assembly
+				activate_law = law_type:law_national_supremacy
+				activate_law = law_type:law_mercantilism
+				activate_law = law_type:law_interventionism
+				activate_law = law_type:law_religious_schools
+				activate_law = law_type:law_no_colonial_affairs
+				activate_law = law_type:law_charitable_health_system
+				activate_law = law_type:law_dedicated_police
+				activate_law = law_type:law_professional_army
+				activate_law = law_type:law_homesteading
+			}
+		}
+		every_state = {
+			limit = {
+				owner = root
+					state_region = {
+						is_homeland = irish
+					}
+			}
+			set_state_owner = c:IRE
+		}
+	}
+}
+
+	#let them go
+	option = {
+		name = gie_exiled.3.a
+		default_option = yes
+		ai_chance = {
+			base = 100
+		}
+	}
+
+	#to war with them
+	option = {
+		name = gie_exiled.3.b
+			create_diplomatic_play = {
+				type = dp_annex_war
+				target_country = c:IRE
+			}
+			hidden_effect = {
+				change_infamy = -1000
+			}
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+gie_exiled.4 = {
+	type = country_event
+	placement = ROOT
+
+	title = gie_exiled.4.t
+	desc = gie_exiled.4.d
+	flavor = gie_exiled.4.f
+
+	event_image = {
+		video = "ep1_transfer_of_authority"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	duration = 1
+
+	trigger = {
+	}
+
+	immediate = {
+		
+	}
+
+	option = {
+		name = gie_exiled.4.a
+		default_option = yes
+
+		create_diplomatic_play = {
+			type = dp_independence
+			target_country = overlord
+		}
+	}
+
+	option = {
+		name = gie_exiled.4.b
+		ai_chance = {
+			base = 100
+		}
+		top_overlord = {
+			annex_with_incorporation = root
+		}
+	}
+}

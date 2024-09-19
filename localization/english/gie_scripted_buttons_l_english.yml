@@ -1,0 +1,10 @@
+﻿l_english:
+#return to homeland (start diplo-play)
+je_gie_return_sb:0 "Declare a war to reclaim the homeland"
+#return to homeland (in diplo-play)
+je_gie_return_in_diplo_sb:0 "Declare the current war a war of liberation"
+#africa unite
+je_gie_africa_union_sb:0 "Unite the African minority rule colonies"
+#africa cult change
+je_gie_africa_assim_on_sb:0 "Start Cultural Re-Education"
+je_gie_africa_assim_off_sb:0 "Pause Cultural Re-Education"

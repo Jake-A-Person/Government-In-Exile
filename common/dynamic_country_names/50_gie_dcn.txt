@@ -1,0 +1,31 @@
+﻿### Try to keep tags in alphabetical order if it's not too far gone, please.
+
+################################################################
+## DEFAULT COUNTRY NAMES EXAMPLE CAN BE USED WITH ANY COUNTRY ##
+################################################################
+
+# Uncomment when need a dynamic_country_name for any country
+DEFAULT = {
+	dynamic_country_name = {
+		name = colonial_admin_gov_exile
+		adjective = colonial_admin_gov_exile_adj
+		#use_overlord_prefix = yes
+		
+		priority = 100
+		
+		trigger = {
+			exists = scope:actor
+			scope:actor ?= {
+				or = {
+					has_variable = senegal_subject_var
+					has_variable = niger_subject_var
+					has_variable = ethiopia_subject_var
+					has_variable = zanj_subject_var
+					has_variable = southern_africa_subject_var
+					has_variable = congo_subject_var		
+				}
+				has_journal_entry = je_gie_africa_union
+			}
+		}
+	}
+}

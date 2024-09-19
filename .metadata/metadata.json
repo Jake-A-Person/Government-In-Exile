@@ -1,0 +1,17 @@
+{
+  "name" : "Government In Exile",
+	"id" : "",
+  "version" : "",
+  "supported_game_version" : "",
+  "short_description" : "",
+  "tags" : [],
+  "relationships" : [],
+  "game_custom_data" : {
+    "multiplayer_synchronized" : true
+  "replace_paths": [
+		"events/bic_breakup.txt"
+		"events/colonial_administration_events.txt"
+		"events/dei_breakup.txt"
+		"common/law/00_slavery.txt"
+	]
+}

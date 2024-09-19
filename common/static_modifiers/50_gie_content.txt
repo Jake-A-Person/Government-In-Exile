@@ -1,0 +1,46 @@
+﻿collapse_of_imp={
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	state_radicals_from_discrimination_mult = 10
+}
+exiled_africa_union={
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+}
+exiled_africa_reform_0={
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	building_throughput_add = -0.3
+}
+exiled_africa_reform_1={
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_ig_industrialists_pol_str_mult = 0.5
+	building_throughput_add = -0.2
+}
+exiled_africa_reform_2={
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_ig_intelligentsia_pol_str_mult = 0.5
+	building_throughput_add = -0.1
+}
+
+africa_assim = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	#gun point assimilation
+	state_mortality_mult = 0.2
+	state_conversion_mult = 2
+}
+
+africa_assim_cost = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	#gun point assimilation
+	country_expenses_add = 1
+	
+}
+
+#this allows me to get all over sease states
+nuke_convoys = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	#-100,000%
+	country_convoys_capacity_mult = -100
+}
+
+civil_war_winner_pointer = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+}
