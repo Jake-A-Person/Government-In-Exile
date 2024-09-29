@@ -3,10 +3,8 @@
 	desc = "je_gie_return_sb_desc"
 
 	visible = { 
-		or = {
-			not = {
-				is_diplomatic_play_enemy_of = scope:return_target
-			}
+		not = {
+			is_diplomatic_play_enemy_of = scope:return_target
 			has_variable = return_war
 		}
 	}
@@ -44,12 +42,12 @@ je_gie_return_in_diplo_sb = {
 
 	visible = { 		
 		is_diplomatic_play_enemy_of = scope:return_target
-	}
-
-	possible = {
 		not = {
 			has_variable = return_war
 		}
+	}
+
+	possible = {
 	}
 
 	effect = {

@@ -1,4 +1,5 @@
-﻿je_gie_civ_war = {
+﻿#when in civil war with comie
+je_gie_civ_war = {
 	icon = "gfx/interface/icons/event_icons/event_election.dds"
 	
    group = je_group_internal_affairs
@@ -19,7 +20,9 @@
 			# 	has_law = law_type:law_council_republic
 			# }
 			count > 0
-		}	}
+		}	
+	}
+
    
 	possible = {
 	}
@@ -32,9 +35,11 @@
 		is_diplomatic_play_committed_participant = no
 	}
 
+	#less then -75% war support (cant do on capitulation)
+	#TODO add text
 	fail = {
 		custom_tooltip = {
-			text = ct_PLACE_HOLDER
+			text = ct_low_war_support
 			any_diplomatic_play = {
 				is_diplomatic_play_type = dp_revolution
 				target_is = root
@@ -42,7 +47,7 @@
 				war = {
 						has_war_support = {
 						target = root
-						value < -75
+						value < 95 #-75 TODO change
 						}
 					}
 			count > 0
@@ -50,20 +55,13 @@
 		}
 	}
 
+	#run away event
 	on_fail = {
 		trigger_event = gie_exiled.1
 	}
 	
 	on_complete = {
 		
-	}
-	
-	current_value = {
-
-	}
-
-	goal_add_value = {
-
 	}
 
 	weight = 10000
@@ -83,7 +81,38 @@ je_gie_retreat = {
    immediate = {
 		change_subject_type = subject_type_protectorate
    
-		
+		#custom flag/name for dyn nations
+		if = {
+			limit = {
+				overlord = c:RUS
+			}
+			set_variable = gov_exile_rus
+		}
+		else_if = {
+			limit = {
+				overlord = c:ITA
+			}
+			set_variable = gov_exile_ita
+		}
+		else_if = {
+			limit = {
+				overlord = c:CHI
+			}
+			set_variable = gov_exile_chi
+		}
+		else_if = {
+			limit = {
+				overlord = c:CHI
+			}
+			set_variable = gov_exile_chi
+		}
+		else_if = {
+			limit = {
+				overlord = c:FRA
+			}
+			set_variable = gov_exile_fra
+		}
+
 		overlord = {
 			every_subject_or_below = {
 				limit = {
@@ -103,37 +132,34 @@ je_gie_retreat = {
 					is_decaying = yes
 				}
 			}
-
-
-
-			random_diplomatic_play = {
-				limit = {
-					is_diplomatic_play_type = dp_revolution
-					target_is = prev
-					war = {
-						has_war_support = {
-						target = prevprev
-						value < -75
-						}
-					}
-				}
-				war = {
-					add_war_war_support = {
-						target = prevprev
-						value = -200
-					}
-				}
-			}
 		}
-		add_modifier = {
-			name = collapse_of_imp
-			years = 20
-			is_decaying = yes
-		}
+
+
+
+		# random_diplomatic_play = {
+		# 	limit = {
+		# 		is_diplomatic_play_type = dp_revolution
+		# 		target_is = overlord
+		# 		war = {
+		# 			has_war_support = {
+		# 			target = overlord
+		# 			value < -75
+		# 			}
+		# 		}
+		# 	}
+		# 	war = {
+		# 		add_war_war_support = {
+		# 			target = overlord
+		# 			value = -200
+		# 		}
+		# 	}
+		# }
 	}
 
 	complete = {
-		is_at_war = no
+		overlord = {
+			is_at_war = no
+		}
 	}
 
 	fail = {
@@ -144,11 +170,6 @@ je_gie_retreat = {
 	}
 	
 	on_complete = {
-		overlord = {
-		add_journal_entry = {
-			type = je_gie_comie_nation
-		}
-		}
 		add_journal_entry = {
 			type = je_gie_return
 		}
@@ -172,6 +193,7 @@ je_gie_retreat = {
 	
 }
 
+#annexs the exiled gov to anex there old nations overseas land
 je_gie_annex_overseas_com = {
 	icon = "gfx/interface/icons/event_icons/event_election.dds"
 	
@@ -184,6 +206,7 @@ je_gie_annex_overseas_com = {
 	 possible = {
 	 }
  
+	 #adds mod that removes all there convoys (-1000%) (no supply network so no market access)
 	immediate = {
 		overlord = {
 			save_scope_as = return_target
@@ -191,13 +214,9 @@ je_gie_annex_overseas_com = {
 				name = nuke_convoys
 			}
 		}
-		scope:return_target = {
-			add_modifier = {
-				name = nuke_convoys
-			}
-		}
 	}
 
+	#wait for update to supply network
 	timeout = 10
 
 	complete = {
@@ -210,6 +229,8 @@ je_gie_annex_overseas_com = {
  
 	 }
 	 
+	 #transferes all states with no market access (the over seas ones)
+	 #also not the irish states TODO change irish independence
 	 on_timeout = {
 		scope:return_target = {
 			every_state = {
@@ -242,7 +263,8 @@ je_gie_annex_overseas_com = {
  
 }
 
-
+#allows the exiled gov to return to their homeland
+#starts irish independence TODO move to a shattered nation event/je?
 je_gie_return = {
 	icon = "gfx/interface/icons/event_icons/event_election.dds"
 	
@@ -250,13 +272,21 @@ je_gie_return = {
 
 	is_shown_when_inactive = {
 	}
-   
+
 	possible = {
 	}
 
+	#marks overload as the exiled gov target
+	#irish independence TODO move to a shattered nation event/je?
    immediate = {
 		overlord = {
 			save_scope_as = return_target
+		}
+		overlord = {
+			create_diplomatic_pact = {
+				country = root
+				type = gie_return_target
+			}
 		}
 		#irish war
 		if = {
@@ -275,17 +305,28 @@ je_gie_return = {
 		}
    }
 
+   	# at lest one nation with all bellow
+	# if is a return target (nation the gov was exiled from)
+	# if has been humiliated by the root
+	# if has the same Governance Principles i.e. both monarchies
 	complete = {
 		any_country = {
-			has_diplomatic_pact = {
-				who = root
-				type = gie_return_target
-			}
-			root = {
+			custom_tooltip = {
+				text = ct_pact_return
 				has_diplomatic_pact = {
-					who = prev
-					type = humiliation
+					who = root
+					type = gie_return_target
 				}
+			}
+			custom_tooltip = {
+				text = ct_pact_humilation
+				root = {
+					has_diplomatic_pact = {
+						who = prev
+						type = humiliation
+					}
+				}
+			}
 
 				or = {
 					and = {
@@ -319,81 +360,136 @@ je_gie_return = {
 						}
 					}
 				}
-			}
 			count > 0	
 		}
 	}
 	
+	#starts a regime change and humiliation diplo-play
 	scripted_button = je_gie_return_sb
 	#add war goals if in diplo-play
 	scripted_button = je_gie_return_in_diplo_sb
 
+	#is a subject of return target (nation the gov was exiled from)
 	fail = {
-		is_subject_of = scope:return_target
+		custom_tooltip = {
+			text = ct_pact_return_subject
+			any_country = {
+				has_diplomatic_pact = {
+					who = root
+					type = gie_return_target
+				}
+				root = {
+					is_subject_of = prev
+				}
+				count > 0
+			}
+		}
 	}
 
 	on_fail = {
 		copy_laws = overlord
 	}
 	
+	#return taget gets this nations laws
+	#return taget turns this nation into there puppet
+	#transfers ruler TODO hier event
 	on_complete = {
-		scope:return_target = {
+		random_country = {
+			limit = {
+				has_diplomatic_pact = {
+					who = root
+					type = gie_return_target
+				}
+			}
 			copy_laws = root
 			create_diplomatic_pact = {
 				country = root
 				type = puppet
 			}
-		}
-		ruler = {
-			transfer_character = scope:return_target
-			set_character_as_ruler = yes
-		}
-		play_as = scope:return_target
+			root = {
+				ruler = {
+					transfer_character = prevprev
+					set_character_as_ruler = yes
+				}
+				play_as = prev
+			}
+		}	
 	}
+
+	weight = 10000
+
+}
+
+#makes sure the winner in a civil war is the target of the exiled nation
+je_gie_return_target_civ_war = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
 	
-	current_value = {
+	group = je_group_internal_affairs
 
+	is_shown_when_inactive = {
 	}
 
-	goal_add_value = {
-
+	#move?
+	possible = {
+		any_country = {
+			has_diplomatic_pact = {
+				who = root
+				type = gie_return_target
+			}
+			is_in_civil_war = yes
+		}
 	}
 
+	immediate = {
+		random_country = {
+			limit = {
+				has_diplomatic_pact = {
+					who = root
+					type = gie_return_target
+				}
+			}
+			save_scope_as = return_target
+		}
 
-	#civl war nation switch check
-	on_weekly_pulse = {
-		effect = {
-			scope:return_target = {
+		# create_diplomatic_pact = {
+		# 	country = THIS
+		# 	type = gie_return_target
+		# }
+
+		#get return targets diplo play civil war
+		random_diplomatic_play = {
+			limit = {
+				target = scope:return_target
+				is_diplomatic_play_type = dp_revolution
+			}
+			#the other side in the civil war
+			initiator = {
+				#adds a target to return to in case the revolution wins
 				create_diplomatic_pact = {
 					country = root
 					type = gie_return_target
 				}
 			}
-			# if = {
-			# 	limit = {
-			# 		not = {
-			# 			exists = scope:return_target
-			# 		}
-			# 	}
-			# 	#i found the thing
-			# 		#save_scope_as = return_target
-			# 	random_country = {
-			# 		limit = {
-			# 			has_modifier = civil_war_winner_pointer
-			# 		}	
-			# 		#clear_saved_scope = return_target
-			# 		save_scope_as = return_target
-			# 		remove_modifier = civil_war_winner_pointer
-			# 		remove_modifier = civil_war_winner_pointer
-			# 	}
-			# }
 		}
 	}
 
-	progressbar = yes
+	#civil war is over
+	complete = {
+		any_country = {
+			has_diplomatic_pact = {
+				who = root
+				type = gie_return_target
+			}
+			is_in_civil_war = no
+		}
+	}
 
-	weight = 10000
+	on_complete = {
+		
+	}
 
+
+	weight = 1000
 }
 
 je_gie_return_war = {
@@ -423,70 +519,49 @@ je_gie_return_war = {
 
 }
 
-je_gie_comie_nation = {
-	icon = "gfx/interface/icons/event_icons/event_election.dds"
+# je_gie_comie_nation = {
+# 	icon = "gfx/interface/icons/event_icons/event_election.dds"
 	
-   group = je_group_internal_affairs
+#    group = je_group_internal_affairs
 
-	is_shown_when_inactive = {
-	}
+# 	is_shown_when_inactive = {
+# 	}
    
-	possible = {
-	}
+# 	possible = {
+# 	}
 
-   immediate = {
+#    immediate = {
 
-	}
+# 	}
 
 
-	fail = {
-	}
+# 	fail = {
+# 	}
 
-	on_fail = {
-	}
+# 	on_fail = {
+# 	}
 	
-	on_complete = {
-	}
+# 	on_complete = {
+# 	}
 	
-	current_value = {
+# 	current_value = {
 
-	}
+# 	}
 
-	goal_add_value = {
+# 	goal_add_value = {
 
-	}
+# 	}
 
-	on_monthly_pulse = {
-		effect = {
-			random_diplomatic_play = {
-				limit = {
-					target = root
-					is_diplomatic_play_type = dp_revolution
-					initiator = {
-						not = {
-							has_modifier = civil_war_winner_pointer
-						}
-					}
-				}
-				initiator = {
-					add_modifier = {
-						name = civil_war_winner_pointer
-					}
-					add_modifier = {
-						name = civil_war_winner_pointer
-					}
-				}
-			}		
-		}
-	}
+# 	on_monthly_pulse = {
+# 	}
 
-	weight = 10000
+# 	weight = 10000
 
-}
+# }
 
 
 
-#minority affrican ruled nation
+#minority affrican ruled nations unite
 je_gie_africa_union = {
 	icon = "gfx/interface/icons/event_icons/event_election.dds"
 	
@@ -729,17 +804,25 @@ je_gie_africa_assim = {
 
 	}
 
+	#get primary_culture
    immediate = {
 	random_primary_culture = {
 		save_scope_as = primary_culture_scope
-	}
+		}
    }
 
 	complete = {
+		any_scope_pop = {
+			pop_is_discriminated = no
+			#aprox 23 years (not accounting for the decress in num of not discriminated pops or death
+			percent > 0.6
+		}
 	}
 
+	#start forced assimilation
 	scripted_button = je_gie_africa_assim_on_sb
 
+	#stop forced assimilation
 	scripted_button = je_gie_africa_assim_off_sb
 
 	fail = {

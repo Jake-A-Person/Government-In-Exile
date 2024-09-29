@@ -1,0 +1,3 @@
+﻿l_english:
+gie_return_target:0 "Goverment In Exile"
+gie_return_target_pact_desc:0 "[SCOPE.GetRootScope.GetDiplomaticPact.GetSecondCountry.GetName] is the government in exile of [SCOPE.GetRootScope.GetDiplomaticPact.GetFirstCountry.GetName]."

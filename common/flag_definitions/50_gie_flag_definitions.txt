@@ -1,0 +1,189 @@
+﻿DEFAULT = {
+	flag_definition = {
+		coa = colonial_southern_africa
+		allow_overlord_canton = yes
+		overlord_canton_scale = { @canton_scale_cross_x @canton_scale_cross_y }
+		priority = 100
+		trigger = {
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = southern_africa_subject_var
+			}
+			NOT = {
+				scope:actor ?= {
+					c:SAF ?= this
+					c:GBR ?= this.overlord
+				}
+			}
+		}
+	}
+
+
+	#free russia
+	flag_definition = {
+		coa = RUS_imperial
+		allow_overlord_canton = yes		
+		subject_canton = RUS_imperial
+		priority = 1001
+		trigger = {
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = gov_exile_rus
+				has_journal_entry = je_gie_africa_union
+			}
+		}
+	}
+	flag_definition = {
+		coa = RUS_absolute_monarchy
+		subject_canton = RUS 
+		priority = 1020
+		trigger = { 
+			coa_def_absolute_monarchy_flag_trigger = yes
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = gov_exile_rus
+				has_journal_entry = je_gie_africa_union
+			}
+		}
+	}	
+	flag_definition = {
+		coa = RUS_republic
+		subject_canton = RUS_republic
+		priority = 1010
+		trigger = { 
+			coa_def_republic_flag_trigger = yes
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = gov_exile_rus
+				has_journal_entry = je_gie_africa_union
+			}
+		}
+	}		
+	flag_definition = {
+		coa = RUS_dictatorship
+		subject_canton = RUS_dictatorship
+		priority = 1020
+		trigger = {
+			coa_def_dictatorship_flag_trigger = yes
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = gov_exile_rus
+				has_journal_entry = je_gie_africa_union
+			}		}
+	}	
+	flag_definition = {
+		coa = RUS_oligarchy
+		subject_canton = RUS_oligarchy
+		priority = 1025
+		trigger = {
+			coa_def_oligarchy_flag_trigger = yes
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = gov_exile_rus
+				has_journal_entry = je_gie_africa_union
+			}
+		}
+	}
+	flag_definition = {
+		coa = RUS_fascist
+		subject_canton = RUS_fascist
+		priority = 2500
+		trigger = { 
+			coa_def_fascist_flag_trigger = yes
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = gov_exile_rus
+				has_journal_entry = je_gie_africa_union
+			}
+		}
+	}	
+
+
+	#oh Free China
+	flag_definition = {
+		coa = CHI
+		subject_canton = CHI
+		coa_with_overlord_canton = CHI_subject
+		allow_overlord_canton = yes		
+		priority = 1001
+		trigger = {
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = gov_exile_chi
+				has_journal_entry = je_gie_africa_union
+			}	
+		}
+	}
+	flag_definition = {
+		coa = CHI_absolute_monarchy
+		subject_canton = CHI_absolute_monarchy
+		coa_with_overlord_canton = CHI_subject
+		allow_overlord_canton = yes				
+		priority = 1020
+		trigger = { 
+			coa_def_absolute_monarchy_flag_trigger = yes
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = gov_exile_chi
+				has_journal_entry = je_gie_africa_union
+			}		
+		}
+	}	
+	flag_definition = {
+		coa = CHI_republic
+		subject_canton = CHI_republic
+		allow_overlord_canton = yes
+		priority = 1010
+		trigger = { 
+			coa_def_republic_flag_trigger = yes
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = gov_exile_chi
+				has_journal_entry = je_gie_africa_union
+			}		
+		}
+	}	
+	flag_definition = {
+		coa = CHI_dictatorship
+		subject_canton = CHI_dictatorship
+		priority = 1020
+		trigger = {
+			coa_def_dictatorship_flag_trigger = yes
+			exists = scope:actor
+			scope:actor ?= {
+				has_variable = gov_exile_chi
+				has_journal_entry = je_gie_africa_union
+			}
+		}
+	}
+
+		#Free Italy
+		flag_definition = {
+			coa = ITA_republic
+			subject_canton = ITA_republic
+			allow_overlord_canton = yes
+			priority = 1100
+			trigger = {
+				exists = scope:actor
+				scope:actor ?= {
+					has_variable = gov_exile_ita
+					has_journal_entry = je_gie_africa_union
+				}
+			}
+		}
+
+		#Free France
+		flag_definition = {
+			coa = FRA_free
+			subject_canton = FRA_free
+			allow_overlord_canton = yes
+			priority = 1500
+			trigger = {
+				exists = scope:actor
+				scope:actor ?= {
+					has_variable = gov_exile_fra
+					has_journal_entry = je_gie_africa_union
+				}
+			}
+		}
+}

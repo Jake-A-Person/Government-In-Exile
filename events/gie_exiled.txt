@@ -28,15 +28,25 @@ gie_exiled.1 = {
 		ordered_subject_or_below = {
 			limit = {
 				is_subject_of = root
+				any_scope_culture = {
+					is_primary_culture_of = root
+					not = { culture_is_discriminated_in = prev }
+					count > 0
+				}
 			}
 			order_by = gdp	
 			this = {	
-			save_scope_as = option1
+				save_scope_as = option1
 			}
 		}
 		ordered_subject_or_below = {
 			limit = {
 				is_subject_of = root
+				any_scope_culture = {
+					is_primary_culture_of = root
+					not = { culture_is_discriminated_in = prev }
+					count > 0
+				}
 				not = { this = scope:option1}
 			}
 			order_by = gdp		
@@ -45,6 +55,11 @@ gie_exiled.1 = {
 		ordered_subject_or_below = {
 			limit = {
 				is_subject_of = root
+				any_scope_culture = {
+					is_primary_culture_of = root
+					not = { culture_is_discriminated_in = prev }
+					count > 0
+				}
 				not = { this = scope:option1}
 				not = { this = scope:option2}
 			}
@@ -66,15 +81,12 @@ gie_exiled.1 = {
 			}
 		}
 		trigger = {
-			any_subject_or_below = {
-				is_subject_of = root
-				count > 0
-			}
+			exists = scope:option1
 		}
 	}
 
 	option = {
-		#flee to second best gdp
+		#flee to 2nd best gdp
 		name = gie_exiled.1.b
 		play_as = scope:option2
 		scope:option2 = {
@@ -84,15 +96,12 @@ gie_exiled.1 = {
 			}
 		}	
 		trigger = {
-			any_subject_or_below = {
-				is_subject_of = root
-				count > 1
-			}
+			exists = scope:option2
 		}
 	}
 
 	option = {
-		#flee to second best gdp
+		#flee to 3rd best gdp
 		name = gie_exiled.1.c
 		play_as = scope:option3
 		scope:option3 = {
@@ -102,27 +111,98 @@ gie_exiled.1 = {
 			}
 		}	
 		trigger = {
-			any_subject_or_below = {
-				is_subject_of = root
-				count > 2
-			}
+			exists = scope:option3
 		}
 	}
 
+	#create a new "free" gov in exile like free france
 	option = {
 		name = gie_exiled.1.d
 		trigger = {
 			any_state = {
 				owner = root
-				state_in_africa = yes
+				or = {
+					#covers non affrican nations with stuff in africa (normal play) (not ottomans/turky as they probably have land connection)
+					and = {
+						root = {
+							capital = {
+								state_is_in_africa = no
+							}
+						}
+						state_is_in_africa = yes
+						is_sea_adjacent = yes
+						not = {
+							root = c:TUR
+						}
+					}
+					#covers non american nations with stuff in american (think alaska)
+					and = {
+						root = {
+							capital = {
+								state_is_in_americas = no
+							}
+						}
+						state_is_in_americas = yes
+						is_sea_adjacent = yes
+					}
+					#get taiwaned!
+					or = {
+						this = s:STATE_FORMOSA
+						this = s:STATE_CYPRUS
+						this = s:STATE_CRETE
+						this = s:STATE_EAST_AEGEAN_ISLANDS
+						this = s:STATE_WEST_AEGEAN_ISLANDS
+						this = s:STATE_MALTA
+						this = s:STATE_SARDINIA
+						this = s:STATE_SICILY
+						this = s:STATE_CORSICA
+						this = s:STATE_BAHAMAS
+					}
+				}
 				count > 0
 			}
 		}
 		random_state = {
 			limit = {
 				owner = root
-				state_in_africa = yes
-				is_sea_adjacent = yes
+				or = {
+					#covers non affrican nations with stuff in africa (normal play) (not ottomans/turky as they probably have land connection)
+					and = {
+						root = {
+							capital = {
+								state_is_in_africa = no
+							}
+						}
+						state_is_in_africa = yes
+						is_sea_adjacent = yes
+						not = {
+							root = c:TUR
+						}
+					}
+					#covers non american nations with stuff in american (think alaska)
+					and = {
+						root = {
+							capital = {
+								state_is_in_americas = no
+							}
+						}
+						state_is_in_americas = yes
+						is_sea_adjacent = yes
+					}
+					#get taiwaned!
+					or = {
+						this = s:STATE_FORMOSA
+						this = s:STATE_CYPRUS
+						this = s:STATE_CRETE
+						this = s:STATE_EAST_AEGEAN_ISLANDS
+						this = s:STATE_WEST_AEGEAN_ISLANDS
+						this = s:STATE_MALTA
+						this = s:STATE_SARDINIA
+						this = s:STATE_SICILY
+						this = s:STATE_CORSICA
+						this = s:STATE_BAHAMAS
+					}
+				}
 			}
 			save_scope_as = exile_capital
 		}
@@ -243,22 +323,6 @@ gie_exiled.2 = {
 			heir = {
 				save_scope_as = overlord_heir
 			}
-
-			# every_state = {
-			# 	limit = {
-			# 		owner = prev
-			# 		market_access = 0
-			# 		not = {
-			# 			state_region = {
-			# 				is_homeland = irish
-			# 			}
-			# 		}
-			# 	}
-			# 	set_state_owner = root
-			# }
-			
-			remove_modifier = nuke_convoys
-
 
 			if = {
 				#heir is handled by being killed or ruler killed in the bellow an event (idk how to make the hair of old nation the heir of a new nation)
