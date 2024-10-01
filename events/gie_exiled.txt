@@ -145,18 +145,19 @@ gie_exiled.1 = {
 						state_is_in_americas = yes
 						is_sea_adjacent = yes
 					}
-					#get taiwaned!
+					# i know the extra or is not need but it looks nicer this way also GET TAIWANED!!!!!!!!!!!!
 					or = {
-						this = s:STATE_FORMOSA
-						this = s:STATE_CYPRUS
-						this = s:STATE_CRETE
-						this = s:STATE_EAST_AEGEAN_ISLANDS
-						this = s:STATE_WEST_AEGEAN_ISLANDS
-						this = s:STATE_MALTA
-						this = s:STATE_SARDINIA
-						this = s:STATE_SICILY
-						this = s:STATE_CORSICA
-						this = s:STATE_BAHAMAS
+						#GET TAIWANED^2
+						state_region = s:STATE_FORMOSA
+						state_region = s:STATE_CYPRUS
+						state_region = s:STATE_CRETE
+						state_region = s:STATE_EAST_AEGEAN_ISLANDS
+						state_region = s:STATE_WEST_AEGEAN_ISLANDS
+						state_region = s:STATE_MALTA
+						state_region = s:STATE_SARDINIA
+						state_region = s:STATE_SICILY
+						state_region = s:STATE_CORSICA
+						state_region = s:STATE_BAHAMAS
 					}
 				}
 				count > 0
@@ -191,16 +192,16 @@ gie_exiled.1 = {
 					}
 					#get taiwaned!
 					or = {
-						this = s:STATE_FORMOSA
-						this = s:STATE_CYPRUS
-						this = s:STATE_CRETE
-						this = s:STATE_EAST_AEGEAN_ISLANDS
-						this = s:STATE_WEST_AEGEAN_ISLANDS
-						this = s:STATE_MALTA
-						this = s:STATE_SARDINIA
-						this = s:STATE_SICILY
-						this = s:STATE_CORSICA
-						this = s:STATE_BAHAMAS
+						state_region = s:STATE_FORMOSA
+						state_region = s:STATE_CYPRUS
+						state_region = s:STATE_CRETE
+						state_region = s:STATE_EAST_AEGEAN_ISLANDS
+						state_region = s:STATE_WEST_AEGEAN_ISLANDS
+						state_region = s:STATE_MALTA
+						state_region = s:STATE_SARDINIA
+						state_region = s:STATE_SICILY
+						state_region = s:STATE_CORSICA
+						state_region = s:STATE_BAHAMAS
 					}
 				}
 			}
@@ -208,7 +209,7 @@ gie_exiled.1 = {
 		}
 		create_dynamic_country = {
 			origin = root
-			tier = principality
+			tier = kingdom
 			capital = scope:exile_capital
 			on_created = { 
 				set_variable = senegal_subject_var #for africa union events

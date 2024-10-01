@@ -406,6 +406,10 @@ je_gie_return = {
 				country = root
 				type = puppet
 			}
+			remove_diplomatic_pact = {
+				country = root
+				type = gie_return_target
+			}
 			root = {
 				ruler = {
 					transfer_character = prevprev
