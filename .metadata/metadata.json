@@ -1,13 +1,13 @@
 {
   "name" : "Government In Exile",
-	"id" : "",
-  "version" : "",
-  "supported_game_version" : "",
-  "short_description" : "",
-  "tags" : [],
-  "relationships" : [],
+  "id" : "government.in.exile",
+  "short_description" : "Allows for the formation of governments in exile if nations fall to communism",
+  "supported_game_version" : "1.7.*",
+  "picture": "thumbnail.png",
+  "tags" : ["Alternative History"],
   "game_custom_data" : {
-    "multiplayer_synchronized" : true
+   "multiplayer_synchronized" : true
+  }
   "replace_paths": [
 		"events/bic_breakup.txt"
 		"events/colonial_administration_events.txt"

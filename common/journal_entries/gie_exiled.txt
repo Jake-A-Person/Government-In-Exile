@@ -9,16 +9,16 @@ je_gie_civ_war = {
 		is_in_civil_war = yes
 
 		#comunist civ war
-		#not = {has_law = law_type:law_council_republic} 
+		not = {has_law = law_type:law_council_republic} 
 
 		is_at_war = yes
 
 		any_diplomatic_play = {
 			is_diplomatic_play_type = dp_revolution
 			target = root
-			# initiator = {
-			# 	has_law = law_type:law_council_republic
-			# }
+			initiator = {
+				has_law = law_type:law_council_republic
+			}
 			count > 0
 		}	
 	}
@@ -36,7 +36,6 @@ je_gie_civ_war = {
 	}
 
 	#less then -75% war support (cant do on capitulation)
-	#TODO add text
 	fail = {
 		custom_tooltip = {
 			text = ct_low_war_support
@@ -47,7 +46,7 @@ je_gie_civ_war = {
 				war = {
 						has_war_support = {
 						target = root
-						value < 95 #-75 TODO change
+						value < -75
 						}
 					}
 			count > 0
@@ -84,30 +83,28 @@ je_gie_retreat = {
 		#custom flag/name for dyn nations
 		if = {
 			limit = {
+				exists = c:RUS
 				overlord = c:RUS
 			}
 			set_variable = gov_exile_rus
 		}
 		else_if = {
 			limit = {
+				exists = c:ITA
 				overlord = c:ITA
 			}
 			set_variable = gov_exile_ita
 		}
 		else_if = {
 			limit = {
+				exists = c:CHI
 				overlord = c:CHI
 			}
 			set_variable = gov_exile_chi
 		}
 		else_if = {
 			limit = {
-				overlord = c:CHI
-			}
-			set_variable = gov_exile_chi
-		}
-		else_if = {
-			limit = {
+				exists = c:FRA
 				overlord = c:FRA
 			}
 			set_variable = gov_exile_fra
@@ -607,8 +604,6 @@ je_gie_africa_union = {
 	on_weekly_pulse = {
 	}
 
-	progressbar = yes
-
 	weight = 10000
 
 }
@@ -658,16 +653,7 @@ je_gie_africa_reform_1 = {
 			type = je_gie_africa_reform_2
 		}
 	}
-	
-	current_value = {
 
-	}
-
-	goal_add_value = {
-
-	}
-
-	progressbar = yes
 
 	weight = 10000
 
@@ -734,15 +720,6 @@ je_gie_africa_reform_2 = {
 		}
 	 }
 	 
-	 current_value = {
- 
-	 }
- 
-	 goal_add_value = {
- 
-	 }
- 
-	 progressbar = yes
  
 	 weight = 10000
  
@@ -781,16 +758,7 @@ je_gie_africa_reform_3 = {
 		 }
 		 remove_modifier = exiled_africa_reform_2
 	 }
-	 
-	 current_value = {
- 
-	 }
- 
-	 goal_add_value = {
- 
-	 }
- 
-	 progressbar = yes
+
  
 	 weight = 10000
  
@@ -837,14 +805,6 @@ je_gie_africa_assim = {
 	
 	on_complete = {
 	}
-	
-	current_value = {
-
-	}
-
-	goal_add_value = {
-
-	}
 
 	on_weekly_pulse = {
 		effect = {
@@ -866,29 +826,3 @@ je_gie_africa_assim = {
 		}
 	}
 }
-
-
-
-# je_gie_test = {
-
-# 	icon = "gfx/interface/icons/event_icons/event_election.dds"
-	
-# 	group = je_group_internal_affairs
- 
-
-# 	is_shown_when_inactive = {
-# 		always = yes
-# 	}
-
-# 	possible = { 
-# 		country_rank >= rank_value:major_power
-# 		any_subject_or_below = {
-# 			is_subject_of = root
-# 			count > 0
-# 		}
-# 	}
-
-# 	immediate = {
-# 		trigger_event = gie_exiled.1
-# 	}
-# }

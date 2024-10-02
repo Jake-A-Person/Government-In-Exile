@@ -1,6 +1,5 @@
 ﻿l_english:
-#clu cad unification coped from canida unfication
-gie_exiled.1.t:0 "The home land has been overun"
+ gie_exiled.1.t:0 "The home land has been overun"
  gie_exiled.1.f:0 "The revolutionary government has taken over the homeland and some of the ministers of central government are ready to depart from one of the last ports where shall they go."
  gie_exiled.1.d:0 "The homeland has been lost but our empire beyond the sea remains loyal where shall we set up a new government."
 
@@ -12,9 +11,9 @@ gie_exiled.1.e:0 "We shall fall with our people"
 
 gie_exiled.2.t:0 "Arrived at [ROOT.GetCountry.GetName]"
 gie_exiled.2.f:0 "The ministers that survived the onslaught of the revolution have arrived."
-gie_exiled.2.f2:0 "As [SCOPE.sCharacter('overlord_ruler').GetFullName] boarded the ship port a report was received that [SCOPE.sCharacter('overlord_heir').GetFullName] has been captured any rescue mission would require the use of the royal guard putting [SCOPE.sCharacter('overlord_ruler').GetFullName] in mortal danger."
+gie_exiled.2.f2:0 "King or heir."
 gie_exiled.2.d:0 "This new government is currently moving to assert authority over the colonies beyond the sea."
-gie_exiled.2.d2:0 "King or heir."
+gie_exiled.2.d2:0 "As [SCOPE.sCharacter('overlord_ruler').GetFullName] boarded the ship port a report was received that [SCOPE.sCharacter('overlord_heir').GetFullName] has been captured any rescue mission would require the use of the royal guard putting [SCOPE.sCharacter('overlord_ruler').GetFullName] in mortal danger."
 gie_exiled.2.a:0 "Onwards"
 gie_exiled.2.b:0 "[SCOPE.sCharacter('overlord_heir').GetFullName] must be saved at all cost"
 gie_exiled.2.c:0 "[SCOPE.sCharacter('overlord_ruler').GetFullName] must live at all cost"
