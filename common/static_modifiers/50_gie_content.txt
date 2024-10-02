@@ -1,11 +1,4 @@
-﻿test = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
-	political_movement_support_add = 100
-	political_movement_radicalism_add = 100
-
-}
-
-collapse_of_imp={
+﻿collapse_of_imp={
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
 	state_radicals_from_discrimination_mult = 10
 }
