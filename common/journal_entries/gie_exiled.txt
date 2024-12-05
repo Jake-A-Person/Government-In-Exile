@@ -77,9 +77,7 @@ je_gie_retreat = {
 	possible = {
 	}
 
-   immediate = {
-		change_subject_type = subject_type_protectorate
-   
+   immediate = {   
 		#custom flag/name for dyn nations
 		if = {
 			limit = {
@@ -110,47 +108,66 @@ je_gie_retreat = {
 			set_variable = gov_exile_fra
 		}
 
-		overlord = {
-			every_subject_or_below = {
-				limit = {
-					overlord = prev
-					not = { this = root }
-				}
-				make_independent = yes
-				root = {
-					create_diplomatic_pact = {
-						country = prev
-						type = dominion
-					}
-				}
-				add_modifier = {
-					name = collapse_of_imp
-					years = 20
-					is_decaying = yes
-				}
+		top_overlord = {
+			save_scope_as = oldGoverment
+		}
+
+		#Switches subjects over to the exiled goverment
+		make_independent = yes
+		#puppet gets all of the subjects
+		if = {
+			limit = {
+				#diferent subjects for recognized and unrecognized
+				is_country_type = recognized 
+			}
+			create_diplomatic_pact = {
+				country = overlord
+				type = puppet
+			}
+
+		}
+		else = {
+			create_diplomatic_pact = {
+				country = overlord
+				type = vassal
 			}
 		}
 
 
 
-		# random_diplomatic_play = {
-		# 	limit = {
-		# 		is_diplomatic_play_type = dp_revolution
-		# 		target_is = overlord
-		# 		war = {
-		# 			has_war_support = {
-		# 			target = overlord
-		# 			value < -75
-		# 			}
-		# 		}
-		# 	}
-		# 	war = {
-		# 		add_war_war_support = {
-		# 			target = overlord
-		# 			value = -200
-		# 		}
-		# 	}
-		# }
+
+		every_subject_or_below = {
+			limit = {
+				overlord = this
+					not = { this = scope:oldGoverment }
+				}
+			add_modifier = {
+				name = collapse_of_imp
+				years = 20
+				is_decaying = yes
+			}
+		}
+
+		scope:oldGoverment = {
+			make_independent = yes
+			if = {
+				limit = {
+					root = {
+						is_country_type = recognized
+					}
+				}
+				create_diplomatic_pact = {
+					country = overlord
+					type = protectorate
+				}
+			}
+			else = {
+				create_diplomatic_pact = {
+					country = overlord
+					type = tributary
+				}
+			}	
+		}
 	}
 
 	complete = {
