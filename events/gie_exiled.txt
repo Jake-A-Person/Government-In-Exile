@@ -27,6 +27,7 @@ gie_exiled.1 = {
 		#get flee options
 		ordered_subject_or_below = {
 			limit = {
+				#gets a subject that accepts at least the PC of the current nation
 				is_subject_of = root
 				any_scope_culture = {
 					is_primary_culture_of = root
@@ -330,6 +331,19 @@ gie_exiled.2 = {
 				limit = { has_law = law_type:law_monarchy }
 				ROOT = {
 					activate_law = law_type:law_monarchy
+					#change king to be somone else or will force nations into a persinal union
+					overlord = {
+						create_character = {
+							female = no
+							religion = scope:state_religion_scope
+							ruler = yes
+							heir = no
+							age = 26
+							ideology = ideology:ideology_abolitionist
+							interest_group = ig_intelligentsia
+							ig_leader = yes
+						}	
+					}
 				}
 			}
 			else_if = {
