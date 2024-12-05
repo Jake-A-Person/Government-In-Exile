@@ -334,14 +334,13 @@ gie_exiled.2 = {
 					#change king to be somone else or will force nations into a persinal union
 					overlord = {
 						create_character = {
-							female = no
+							female = yes
 							religion = scope:state_religion_scope
 							ruler = yes
 							heir = no
-							age = 26
+							age = 19
 							ideology = ideology:ideology_abolitionist
 							interest_group = ig_intelligentsia
-							ig_leader = yes
 						}	
 					}
 				}
@@ -371,7 +370,7 @@ gie_exiled.2 = {
 	option = {
 		trigger = {
 			not = {
-				exists = heir
+				exists = scope:overlord_heir
 			}
 		}
 		name = gie_exiled.2.a
@@ -380,7 +379,7 @@ gie_exiled.2 = {
 		
 		
 		overlord = {
-			ruler = {
+			scope:overlord_ruler = {
 				transfer_character = ROOT
 				set_character_as_ruler = yes
 			}
@@ -403,7 +402,7 @@ gie_exiled.2 = {
 		default_option = yes
 
 		trigger = {
-			exists = heir
+			exists = scope:overlord_heir
 		}
 		scope:overlord_ruler = {
 			kill_character = yes
@@ -428,7 +427,7 @@ gie_exiled.2 = {
 		name = gie_exiled.2.c
 
 		trigger = {
-			exists = heir
+			exists = scope:overlord_heir
 		}
 		scope:overlord_ruler = {
 			transfer_character = ROOT
