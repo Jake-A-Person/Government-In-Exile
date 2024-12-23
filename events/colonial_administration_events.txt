@@ -377,6 +377,8 @@ colonial_administration_events.2 = {
 
 		activate_law = law_type:law_professional_army
 		activate_law = law_type:law_national_guard
+		activate_law = law_type:law_charitable_health_system
+		activate_law = law_type:law_religious_schools
 		if = {
 			limit = { has_technology_researched = political_agitation }
 			activate_law = law_type:law_outlawed_dissent

@@ -24,16 +24,43 @@ gie_exiled.1 = {
 	}
 
 	immediate = {
-		#get flee options
+		# every_primary_culture = {
+		# }
+		# #get flee options
+		# every_subject_or_below = {
+		# 	# root = {
+		# 	# 	every_scope_pop = {
+		# 	# 		limit = {
+		# 	# 			will_be_accepted_culture = yes
+		# 	# 		}
+		# 	# 		#move_pop = prevprev.capital #.region_state:prev
+		# 	# 		# random_list = {
+		# 	# 		# 	25 = {
+		# 	# 		# 		move_pop = prev.capital #.region_state:prev
+		# 	# 		# 	}
+		# 	# 		# 	75 = {
+
+		# 	# 		# 	}
+		# 	# 		# }
+		# 	# 		move_pop = prevprev.capital
+		# 	# 		#move_pop = s:STATE_CYPRUS.region_state:TUR
+		# 	# 	}
+		# 	# }
+		trigger_event = gie_acceped.1
+
 		ordered_subject_or_below = {
 			limit = {
 				#gets a subject that accepts at least the PC of the current nation
 				is_subject_of = root
-				any_scope_culture = {
-					is_primary_culture_of = root
-					not = { culture_is_discriminated_in = prev }
-					count > 0
-				}
+				# any_scope_pop = {
+				# 	culture = {
+				# 		is_primary_culture_of = root
+				# 	}
+				# 	# prevprev = { cultural_acceptance_base = { target = prev value > acceptance_status_3 }}
+					
+				# 	count > 0
+				# }
+				has_modifier = accept_over_cult
 			}
 			order_by = gdp	
 			this = {	
@@ -43,31 +70,42 @@ gie_exiled.1 = {
 		ordered_subject_or_below = {
 			limit = {
 				is_subject_of = root
-				any_scope_culture = {
-					is_primary_culture_of = root
-					not = { culture_is_discriminated_in = prev }
-					count > 0
-				}
+				# any_scope_pop = {
+				# 	culture = {
+				# 		is_primary_culture_of = root
+				# 	}
+				# 	#will_be_accepted_culture = yes
+				# 	prevprev = { cultural_acceptance_base = { target = prev value > acceptance_status_3 }}
+				# 	count > 0
+				# }		
+				has_modifier = accept_over_cult
+		
 				not = { this = scope:option1}
 			}
 			order_by = gdp		
+			
+
 			save_scope_as = option2
 		}
 		ordered_subject_or_below = {
 			limit = {
 				is_subject_of = root
-				any_scope_culture = {
-					is_primary_culture_of = root
-					not = { culture_is_discriminated_in = prev }
-					count > 0
-				}
+				# any_scope_pop = {
+				# 	culture = {
+				# 		is_primary_culture_of = root
+				# 	}
+				# 	#will_be_accepted_culture = yes
+				# 	prevprev = { cultural_acceptance_base = { target = prev value > acceptance_status_3 }}
+				# 	count > 0
+				# }
+				has_modifier = accept_over_cult
+
 				not = { this = scope:option1}
 				not = { this = scope:option2}
 			}
 			order_by = gdp		
 			save_scope_as = option3
 		}	
-	
 	}
 
 	option = {
@@ -613,3 +651,34 @@ gie_exiled.4 = {
 		}
 	}
 }
+
+#gives a few pops of overloads PC to curent nation
+#this means it calculates discrimination
+# gie_exiled.5 = {
+# 	type = state_event
+# 	hidden = yes
+# 	placement = ROOT
+
+# 	title = gie_exiled.4.t
+# 	desc = gie_exiled.4.d
+# 	flavor = gie_exiled.4.f
+	
+
+# 	immediate = {
+# 				owner = {
+# 					overlord = {
+# 						every_primary_culture = {
+# 							save_scope_as = primary_culture_scope
+# 							root = {
+# 								every_scope_pop = {
+# 									change_pop_culture = {
+# 										target = scope:primary_culture_scope
+# 										value = 0.01
+# 									}
+# 								}
+# 							}
+# 						}
+# 					}
+# 				}
+# 	}
+# }

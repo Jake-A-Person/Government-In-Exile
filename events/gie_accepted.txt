@@ -1,0 +1,54 @@
+namespace = gie_accepted
+
+#for each direct subjects that doesnt discriminate against at least one of this is PCs add modifier "accept_over_cult" on each of said subject
+gie_accepted.1 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		every_direct_subject = {
+			trigger_event = gie_accepted.2
+		}
+	}
+}
+
+#if nation doesnt discriminate against overloads PC add modifier "accept_over_cult"
+gie_accepted.2 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = {
+				overlord = {
+					any_primary_culture = {
+					#uses the old defination for discimnation as the levels systeam doesnt allways give the desired response 
+					or = {
+							and = {
+								root = {has_law = law_type:law_multicultural}
+							}
+							and = {
+								root = {has_law = law_type:law_cultural_exclusion}
+								shares_trait_with_any_primary_culture = root
+
+							}
+							and = {
+								root = {has_law = law_type:law_racial_segregation}
+								shares_heritage_trait_with_any_primary_culture = root
+							}
+							and = {
+								root = {has_law = law_type:law_national_supremacy}
+								shares_heritage_and_other_trait_with_any_primary_culture = root
+							}
+						}
+						count > 1
+					}
+				}
+			}
+			add_modifier = {
+				name = accept_over_cult
+				years = 10
+			}
+		}
+	}
+}

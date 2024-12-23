@@ -25,6 +25,10 @@ africa_assim = {
 	#gun point assimilation
 	state_mortality_mult = 0.2
 	state_conversion_mult = 2
+	state_assimilation_mult = 2
+	state_radicalism_increases_violent_hostility_mult = 2
+	state_radicalism_increases_open_prejudice_mult = 2
+
 }
 
 africa_assim_cost = {
@@ -34,7 +38,7 @@ africa_assim_cost = {
 	
 }
 
-#this allows me to get all over sease states
+#this allows me to get all over seas states
 nuke_convoys = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
 	#-100,000%
@@ -42,5 +46,10 @@ nuke_convoys = {
 }
 
 civil_war_winner_pointer = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+}
+
+#is set on a subject which accecpts at least of of there overloads PCs 
+accept_over_cult = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
 }
