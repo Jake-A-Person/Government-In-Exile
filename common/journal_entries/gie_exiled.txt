@@ -28,7 +28,7 @@ je_gie_civ_war = {
 	}
 
    immediate = {
-	#sees if a PC would be accpected in subject if true set accept_over_cult on the siad subjects
+	#sees if a PC would be accpected in subject if true set accept_over_cult on the said subjects
 	trigger_event = gie_accepted.1
    }
 
