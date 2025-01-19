@@ -53,3 +53,22 @@ civil_war_winner_pointer = {
 accept_over_cult = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
 }
+
+#is set on a subject which accecpts at least of of there overloads PCs 
+check = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+}
+
+#is set on a subject which accecpts at least of of there overloads PCs 
+adj = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+}
+
+#is set on a subject which accecpts at least of of there overloads PCs 
+nadj = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+}
+
+search_key = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+}

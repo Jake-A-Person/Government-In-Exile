@@ -17,7 +17,10 @@ je_gie_civ_war = {
 			is_diplomatic_play_type = dp_revolution
 			target = root
 			initiator = {
-				has_law = law_type:law_council_republic
+				OR = {
+					has_law = law_type:law_council_republic
+					has_law = law_type:law_cooperative_ownership
+				}
 			}
 			count > 0
 		}	
@@ -123,14 +126,14 @@ je_gie_retreat = {
 				is_country_type = recognized 
 			}
 			create_diplomatic_pact = {
-				country = overlord
+				country = scope:oldGoverment
 				type = puppet
 			}
 
 		}
 		else = {
 			create_diplomatic_pact = {
-				country = overlord
+				country = scope:oldGoverment
 				type = vassal
 			}
 		}
@@ -265,13 +268,6 @@ je_gie_annex_overseas_com = {
 		}
 	 }
 	 
-	 current_value = {
- 
-	 }
- 
-	 goal_add_value = {
- 
-	 }
  
 	 progressbar = yes
  

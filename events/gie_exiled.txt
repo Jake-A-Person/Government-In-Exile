@@ -46,7 +46,7 @@ gie_exiled.1 = {
 		# 	# 		#move_pop = s:STATE_CYPRUS.region_state:TUR
 		# 	# 	}
 		# 	# }
-		trigger_event = gie_acceped.1
+		trigger_event = gie_accepted.1
 
 		ordered_subject_or_below = {
 			limit = {

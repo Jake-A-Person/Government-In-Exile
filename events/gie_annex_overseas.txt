@@ -1,0 +1,132 @@
+namespace = gie_annex_overseas
+
+#marks states but doesnt annex them
+#run while still in civil war
+gie_annex_overseas.1 = {
+	type = country_event
+	#hidden = yes
+
+	immediate = {
+		set_variable = var_old_gov
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_revolution
+				target = root
+			}
+			initiator = {
+				set_variable = var_rev_gov
+			}
+		}
+		# capital = {
+		# 	add_modifier = search_key 
+		# }
+
+		capital = {	
+			trigger_event = gie_annex_overseas.2
+		}
+	}
+	option = {
+		
+	}
+}
+
+
+gie_annex_overseas.2 = {
+	type = state_event
+
+	#hidden = yes
+
+	
+	
+	immediate = {
+		#gets the scopes for the old gov and the rev gov
+
+		#is curent state revolutionary goverment
+			
+		#is old goverment
+		random_country = {
+			limit = {
+				has_variable = var_old_gov
+			}
+			save_scope_as = old_gov
+		}
+
+		# #revolutionary goverment
+		# random_country = {
+		# 	limit = {
+		# 		has_variable = var_rev_gov
+		# 	}
+		# 	save_scope_as = rev_gov
+		# }
+
+		while = {
+			limit = {
+				any_neighbouring_state = {
+					and = {
+						#owner = c:FRA
+						owner = scope:old_gov
+						not = {has_modifier = adj}	
+					}				
+				} 
+			}
+			random_neighbouring_state = {
+				limit = {
+					#owner = scope:old_gov
+					#owner = {scope:old_gov = overlord}
+					and = {
+						#owner = c:FRA
+						owner = scope:old_gov
+						#owner = scope:rev_gov
+						not = {has_modifier = adj}	
+					}	
+				}
+				add_modifier = adj
+				trigger_event = gie_annex_overseas.2
+			}
+		}
+	}
+	option = {
+		
+	}
+}
+
+#annexs the marked states and handles subjects
+gie_annex_overseas.3 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = {
+				overlord = {
+					any_primary_culture = {
+					#uses the old defination for discimnation as the levels systeam doesnt allways give the desired response 
+						or = {
+							and = {
+								root = {has_law = law_type:law_multicultural}
+							}
+							and = {
+								root = {has_law = law_type:law_cultural_exclusion}
+								shares_trait_with_any_primary_culture = root
+
+							}
+							and = {
+								root = {has_law = law_type:law_racial_segregation}
+								shares_heritage_trait_with_any_primary_culture = root
+							}
+							and = {
+								root = {has_law = law_type:law_national_supremacy}
+								shares_heritage_and_other_trait_with_any_primary_culture = root
+							}
+						}
+						count >= 1
+					}
+				}
+			}
+			add_modifier = {
+				name = accept_over_cult
+				years = 10
+			}
+		}
+	}
+}

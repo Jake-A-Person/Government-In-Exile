@@ -11,6 +11,7 @@
   "replace_paths": [
 		"events/bic_breakup.txt",
 		"events/colonial_administration_events.txt",
-		"events/dei_breakup.txt"
+		"events/dei_breakup.txt",
+		"events/gie_annex_overseas.txt"
 	]
 }
