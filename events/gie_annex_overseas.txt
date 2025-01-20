@@ -4,7 +4,6 @@ namespace = gie_annex_overseas
 #run while still in civil war
 gie_annex_overseas.1 = {
 	type = country_event
-	#hidden = yes
 
 	immediate = {
 		set_variable = var_old_gov
@@ -17,9 +16,6 @@ gie_annex_overseas.1 = {
 				set_variable = var_rev_gov
 			}
 		}
-		# capital = {
-		# 	add_modifier = search_key 
-		# }
 
 		capital = {	
 			trigger_event = gie_annex_overseas.2
@@ -34,16 +30,9 @@ gie_annex_overseas.1 = {
 gie_annex_overseas.2 = {
 	type = state_event
 
-	#hidden = yes
-
-	
-	
 	immediate = {
-		#gets the scopes for the old gov and the rev gov
-
-		#is curent state revolutionary goverment
-			
-		#is old goverment
+		
+		#old goverment
 		random_country = {
 			limit = {
 				has_variable = var_old_gov
@@ -51,42 +40,51 @@ gie_annex_overseas.2 = {
 			save_scope_as = old_gov
 		}
 
-		# #revolutionary goverment
-		# random_country = {
-		# 	limit = {
-		# 		has_variable = var_rev_gov
-		# 	}
-		# 	save_scope_as = rev_gov
-		# }
+		#revolutionary goverment
+		random_country = {
+			limit = {
+				has_variable = var_rev_gov
+			}
+			save_scope_as = rev_gov
+		}
 
+		#for each adjacent state that we havent seen yet that are owned by the old or revolutionary nation or a subject of old
+		#using every_neighbouring_state will trigger the event more then once on some states this avoids that
 		while = {
+			#checks for state owned by old or revolutionary nation or subject of the old government
 			limit = {
 				any_neighbouring_state = {
 					and = {
-						#owner = c:FRA
-						owner = scope:old_gov
+						or = {
+							owner = scope:old_gov
+							owner = scope:rev_gov
+							owner = { 
+								overlord = scope:old_gov
+							}
+						}
 						not = {has_modifier = adj}	
 					}				
 				} 
 			}
+			#checks if a state next to current one has a vaild owner and is not found then mark it as found and trigger the current event on the new found state
 			random_neighbouring_state = {
 				limit = {
-					#owner = scope:old_gov
-					#owner = {scope:old_gov = overlord}
 					and = {
-						#owner = c:FRA
-						owner = scope:old_gov
-						#owner = scope:rev_gov
+						or = {
+							owner = scope:old_gov
+							owner = scope:rev_gov
+							owner = { 
+								overlord = scope:old_gov
+							}
+						}
 						not = {has_modifier = adj}	
 					}	
 				}
 				add_modifier = adj
+				#recursion
 				trigger_event = gie_annex_overseas.2
 			}
 		}
-	}
-	option = {
-		
 	}
 }
 
@@ -96,36 +94,82 @@ gie_annex_overseas.3 = {
 	hidden = yes
 
 	immediate = {
-		if = {
+		#gets the revolutionary nation
+		random_country = {
 			limit = {
-				overlord = {
-					any_primary_culture = {
-					#uses the old defination for discimnation as the levels systeam doesnt allways give the desired response 
-						or = {
-							and = {
-								root = {has_law = law_type:law_multicultural}
-							}
-							and = {
-								root = {has_law = law_type:law_cultural_exclusion}
-								shares_trait_with_any_primary_culture = root
-
-							}
-							and = {
-								root = {has_law = law_type:law_racial_segregation}
-								shares_heritage_trait_with_any_primary_culture = root
-							}
-							and = {
-								root = {has_law = law_type:law_national_supremacy}
-								shares_heritage_and_other_trait_with_any_primary_culture = root
-							}
-						}
-						count >= 1
+				has_diplomatic_pact = {
+					who = THIS
+					type = gie_return_target
+				}
+				not = {this = root}
+			}
+			#exiled gov annex all states not connected to capital
+			every_state = {
+				limit = {
+					not = {has_modifier = adj}
+					owner = prev
+				}
+				set_state_owner = root
+				remove_modifier = adj
+			}
+			
+			#for each subject with a capital that is connected to the old capital of the old goverment (so is it main land i.e. belgium for france) 
+			every_subject_or_below = {
+				limit = {
+					capital = {
+						has_modifier = adj
 					}
 				}
+				#make it a subject of the new goverment and communist
+				activate_law = law_type:law_council_republic
+				#make puppet
+				if = {
+					limit = {
+						root = {
+							is_country_type = recognized 
+						}
+					}
+					make_independent = yes
+					create_diplomatic_pact = {
+						country = prev
+						type = puppet
+					}
+				}
+				#make vassal
+				else = {
+					create_diplomatic_pact = {
+						country = prev
+						type = vassal
+					}
+				}
+				#if the subject has any states not connected to the capital then the exiled goverment will annex them (i.e. annex belgium congo for free france)
+				every_scope_state = {
+					limit = {
+						not = {has_modifier = adj}
+					}
+					set_state_owner = root	
+				}
 			}
-			add_modifier = {
-				name = accept_over_cult
-				years = 10
+			#for every subject that whoms capital is not connected to the old capital of the old goverment
+			#works as all subjects that are connected are a subject of new goverment
+			every_subject_or_below = {
+				#for each sate of said subject new goverment annex the ones that are connected to the old capital of the old goverment (i.e. peadmonts capital is sardina annex nice, savoy, ect)
+				every_scope_state = {
+					limit = {
+						has_modifier = adj
+					}
+					set_state_owner = prev
+					remove_modifier = adj
+				}
+			}
+		}
+		#clean up
+		every_subject_or_below = {
+			every_scope_state = {
+				limit = {
+					has_modifier = adj
+				}
+				remove_modifier = adj
 			}
 		}
 	}
