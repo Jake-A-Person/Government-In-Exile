@@ -4,6 +4,7 @@ namespace = gie_annex_overseas
 #run while still in civil war
 gie_annex_overseas.1 = {
 	type = country_event
+	hidden = yes
 
 	immediate = {
 		set_variable = var_old_gov
@@ -20,15 +21,31 @@ gie_annex_overseas.1 = {
 		capital = {	
 			trigger_event = gie_annex_overseas.2
 		}
+
+		#clean up
+		random_country = {
+			limit = {
+				has_variable = var_old_gov
+			}
+			remove_variable = var_old_gov
+		}
+
+		#revolutionary goverment
+		random_country = {
+			limit = {
+				has_variable = var_rev_gov
+			}
+			remove_variable = var_rev_gov
+		}
+
 	}
-	option = {
-		
-	}
+
 }
 
-
+#recursively marks all adjacent states such that all of the connected sates are marked 
 gie_annex_overseas.2 = {
 	type = state_event
+	hidden = yes
 
 	immediate = {
 		
@@ -89,6 +106,7 @@ gie_annex_overseas.2 = {
 }
 
 #annexs the marked states and handles subjects
+#run after civ war and on exiled gov
 gie_annex_overseas.3 = {
 	type = country_event
 	hidden = yes
@@ -98,77 +116,121 @@ gie_annex_overseas.3 = {
 		random_country = {
 			limit = {
 				has_diplomatic_pact = {
-					who = THIS
+					who = root
 					type = gie_return_target
 				}
 				not = {this = root}
 			}
 			#exiled gov annex all states not connected to capital
-			every_state = {
+			every_scope_state = {
 				limit = {
 					not = {has_modifier = adj}
-					owner = prev
 				}
 				set_state_owner = root
-				remove_modifier = adj
 			}
 			
-			#for each subject with a capital that is connected to the old capital of the old goverment (so is it main land i.e. belgium for france) 
+			#for each subject with a capital that is not connected to the old capital of the old goverment (so is it over seas i.e. congo for belgium) 
 			every_subject_or_below = {
 				limit = {
 					capital = {
-						has_modifier = adj
-					}
-				}
-				#make it a subject of the new goverment and communist
-				activate_law = law_type:law_council_republic
-				#make puppet
-				if = {
-					limit = {
-						root = {
-							is_country_type = recognized 
-						}
-					}
-					make_independent = yes
-					create_diplomatic_pact = {
-						country = prev
-						type = puppet
-					}
-				}
-				#make vassal
-				else = {
-					create_diplomatic_pact = {
-						country = prev
-						type = vassal
-					}
-				}
-				#if the subject has any states not connected to the capital then the exiled goverment will annex them (i.e. annex belgium congo for free france)
-				every_scope_state = {
-					limit = {
 						not = {has_modifier = adj}
 					}
-					set_state_owner = root	
 				}
-			}
-			#for every subject that whoms capital is not connected to the old capital of the old goverment
-			#works as all subjects that are connected are a subject of new goverment
-			every_subject_or_below = {
-				#for each sate of said subject new goverment annex the ones that are connected to the old capital of the old goverment (i.e. peadmonts capital is sardina annex nice, savoy, ect)
+
+				#for each state in said subject that is connected (main land) new goveremnt annexes it
 				every_scope_state = {
 					limit = {
 						has_modifier = adj
 					}
-					set_state_owner = prev
+					set_state_owner = prevprev
+					remove_modifier = adj
+				}
+
+				#chage overlord to be exiled goverment
+				if = {
+					limit = {
+						is_subject_type = subject_type_protectorate
+					}
+					make_independent = yes
+					root = {
+						create_diplomatic_pact = {
+							country = prev
+							type = protectorate
+						}
+					}
+				}
+
+				
+				if = {
+					limit = {
+						is_subject_type = subject_type_puppet
+					}
+					make_independent = yes
+					root = {
+						create_diplomatic_pact = {
+							country = prev
+							type = puppet
+						}
+					}
+				}
+
+				
+				if = {
+					limit = {
+						is_subject_type = subject_type_dominion
+					}
+					make_independent = yes
+					root = {
+						create_diplomatic_pact = {
+							country = prev
+							type = dominion
+						}
+					}
+				}
+
+				
+				if = {
+					limit = {
+						is_subject_type = subject_type_vassal
+					}
+					make_independent = yes
+					root = {
+						create_diplomatic_pact = {
+							country = prev
+							type = vassal
+						}
+					}
+				}
+
+				
+				if = {
+					limit = {
+						is_subject_type = subject_type_tributary
+					}
+					make_independent = yes
+					root = {
+						create_diplomatic_pact = {
+							country = prev
+							type = tributary
+						}
+					}
+				}
+			}
+
+			#as all subjects not connected have been tranfered in above block these are only connected subjects
+			every_subject_or_below = {
+				#all states that are connected get annexed by exiled goverment
+				every_scope_state = {
+					limit = {
+						has_modifier = adj
+					}
+					set_state_owner = root
 					remove_modifier = adj
 				}
 			}
-		}
-		#clean up
-		every_subject_or_below = {
+
+			#clean up modifers on sates
 			every_scope_state = {
-				limit = {
-					has_modifier = adj
-				}
 				remove_modifier = adj
 			}
 		}

@@ -24,42 +24,16 @@ gie_exiled.1 = {
 	}
 
 	immediate = {
-		# every_primary_culture = {
-		# }
-		# #get flee options
-		# every_subject_or_below = {
-		# 	# root = {
-		# 	# 	every_scope_pop = {
-		# 	# 		limit = {
-		# 	# 			will_be_accepted_culture = yes
-		# 	# 		}
-		# 	# 		#move_pop = prevprev.capital #.region_state:prev
-		# 	# 		# random_list = {
-		# 	# 		# 	25 = {
-		# 	# 		# 		move_pop = prev.capital #.region_state:prev
-		# 	# 		# 	}
-		# 	# 		# 	75 = {
-
-		# 	# 		# 	}
-		# 	# 		# }
-		# 	# 		move_pop = prevprev.capital
-		# 	# 		#move_pop = s:STATE_CYPRUS.region_state:TUR
-		# 	# 	}
-		# 	# }
+		#checks which subjects accepts at least 1 PC and adds accept_over_cult modifer is they do
 		trigger_event = gie_accepted.1
+		#gets all states owned by the old (this) and new goverment as well as subjects and if they are connected to old goverment capital then add modifer adj
+		#reqiured for creating a new "free" gov in exile (option d)
+		trigger_event = gie_annex_overseas.1
 
 		ordered_subject_or_below = {
 			limit = {
 				#gets a subject that accepts at least the PC of the current nation
-				is_subject_of = root
-				# any_scope_pop = {
-				# 	culture = {
-				# 		is_primary_culture_of = root
-				# 	}
-				# 	# prevprev = { cultural_acceptance_base = { target = prev value > acceptance_status_3 }}
-					
-				# 	count > 0
-				# }
+				is_direct_subject_of = root
 				has_modifier = accept_over_cult
 			}
 			order_by = gdp	
@@ -69,15 +43,7 @@ gie_exiled.1 = {
 		}
 		ordered_subject_or_below = {
 			limit = {
-				is_subject_of = root
-				# any_scope_pop = {
-				# 	culture = {
-				# 		is_primary_culture_of = root
-				# 	}
-				# 	#will_be_accepted_culture = yes
-				# 	prevprev = { cultural_acceptance_base = { target = prev value > acceptance_status_3 }}
-				# 	count > 0
-				# }		
+				is_direct_subject_of = root
 				has_modifier = accept_over_cult
 		
 				not = { this = scope:option1}
@@ -89,15 +55,7 @@ gie_exiled.1 = {
 		}
 		ordered_subject_or_below = {
 			limit = {
-				is_subject_of = root
-				# any_scope_pop = {
-				# 	culture = {
-				# 		is_primary_culture_of = root
-				# 	}
-				# 	#will_be_accepted_culture = yes
-				# 	prevprev = { cultural_acceptance_base = { target = prev value > acceptance_status_3 }}
-				# 	count > 0
-				# }
+				is_direct_subject_of = root
 				has_modifier = accept_over_cult
 
 				not = { this = scope:option1}
@@ -160,90 +118,16 @@ gie_exiled.1 = {
 		trigger = {
 			any_state = {
 				owner = root
-				or = {
-					#covers non affrican nations with stuff in africa (normal play) (not ottomans/turky as they probably have land connection)
-					and = {
-						root = {
-							capital = {
-								state_is_in_africa = no
-							}
-						}
-						state_is_in_africa = yes
-						is_sea_adjacent = yes
-						not = {
-							root = c:TUR
-						}
-					}
-					#covers non american nations with stuff in american (think alaska)
-					and = {
-						root = {
-							capital = {
-								state_is_in_americas = no
-							}
-						}
-						state_is_in_americas = yes
-						is_sea_adjacent = yes
-					}
-					# i know the extra or is not need but it looks nicer this way also GET TAIWANED!!!!!!!!!!!!
-					or = {
-						#GET TAIWANED^2
-						state_region = s:STATE_FORMOSA
-						state_region = s:STATE_CYPRUS
-						state_region = s:STATE_CRETE
-						state_region = s:STATE_EAST_AEGEAN_ISLANDS
-						state_region = s:STATE_WEST_AEGEAN_ISLANDS
-						state_region = s:STATE_MALTA
-						state_region = s:STATE_SARDINIA
-						state_region = s:STATE_SICILY
-						state_region = s:STATE_CORSICA
-						state_region = s:STATE_BAHAMAS
-					}
-				}
+				not = {has_modifier = adj}
 				count > 0
 			}
 		}
-		random_state = {
+		ordered_state = {
 			limit = {
 				owner = root
-				or = {
-					#covers non affrican nations with stuff in africa (normal play) (not ottomans/turky as they probably have land connection)
-					and = {
-						root = {
-							capital = {
-								state_is_in_africa = no
-							}
-						}
-						state_is_in_africa = yes
-						is_sea_adjacent = yes
-						not = {
-							root = c:TUR
-						}
-					}
-					#covers non american nations with stuff in american (think alaska)
-					and = {
-						root = {
-							capital = {
-								state_is_in_americas = no
-							}
-						}
-						state_is_in_americas = yes
-						is_sea_adjacent = yes
-					}
-					#get taiwaned!
-					or = {
-						state_region = s:STATE_FORMOSA
-						state_region = s:STATE_CYPRUS
-						state_region = s:STATE_CRETE
-						state_region = s:STATE_EAST_AEGEAN_ISLANDS
-						state_region = s:STATE_WEST_AEGEAN_ISLANDS
-						state_region = s:STATE_MALTA
-						state_region = s:STATE_SARDINIA
-						state_region = s:STATE_SICILY
-						state_region = s:STATE_CORSICA
-						state_region = s:STATE_BAHAMAS
-					}
-				}
+				not = {has_modifier = adj}
 			}
+			order_by = state_population
 			save_scope_as = exile_capital
 		}
 		create_dynamic_country = {
@@ -262,6 +146,8 @@ gie_exiled.1 = {
 				has_variable = new_dyn_exile_var
 				}
 			}
+			#make it a subject of the old goverment and force into war
+			#needed for je_gie_retreat to work
 			root = {
 				create_diplomatic_pact = {
 					country = prev
@@ -282,6 +168,7 @@ gie_exiled.1 = {
 		}
 	}
 
+	#do nothing
 	option = {
 		name = gie_exiled.1.e
 	}
@@ -290,6 +177,8 @@ gie_exiled.1 = {
 }
 
 #arrive at colonial holding
+#for nations with an acitve heir chose if they or the sovereign dies (couldn't workout how to transfer heir)
+#sets correct goveremnt up and tranfers over the ruler
 gie_exiled.2 = {
 	type = country_event
 	placement = ROOT
@@ -455,9 +344,9 @@ gie_exiled.2 = {
 			is_decaying = yes
 		}
 
-		add_journal_entry = {
-			type = je_gie_retreat
-		}
+		# add_journal_entry = {
+		# 	# type = je_gie_retreat
+		# }
 	}
 
 	#heir is dead
@@ -606,6 +495,8 @@ gie_exiled.3 = {
 	}
 }
 
+#africa union event for subject, triggered by je_gie_africa_union_sb
+#if acceped gets anexed else war of independence
 gie_exiled.4 = {
 	type = country_event
 	placement = ROOT

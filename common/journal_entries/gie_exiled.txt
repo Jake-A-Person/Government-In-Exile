@@ -80,6 +80,7 @@ je_gie_retreat = {
 	}
    
 	possible = {
+		#trigered by event gie_exiled.2
 	}
 
    immediate = {   
@@ -113,66 +114,6 @@ je_gie_retreat = {
 			set_variable = gov_exile_fra
 		}
 
-		top_overlord = {
-			save_scope_as = oldGoverment
-		}
-
-		#Switches subjects over to the exiled goverment
-		make_independent = yes
-		#puppet gets all of the subjects
-		if = {
-			limit = {
-				#diferent subjects for recognized and unrecognized
-				is_country_type = recognized 
-			}
-			create_diplomatic_pact = {
-				country = scope:oldGoverment
-				type = puppet
-			}
-
-		}
-		else = {
-			create_diplomatic_pact = {
-				country = scope:oldGoverment
-				type = vassal
-			}
-		}
-
-
-
-
-		every_subject_or_below = {
-			limit = {
-				overlord = this
-					not = { this = scope:oldGoverment }
-				}
-			add_modifier = {
-				name = collapse_of_imp
-				years = 20
-				is_decaying = yes
-			}
-		}
-
-		scope:oldGoverment = {
-			make_independent = yes
-			if = {
-				limit = {
-					root = {
-						is_country_type = recognized
-					}
-				}
-				create_diplomatic_pact = {
-					country = overlord
-					type = protectorate
-				}
-			}
-			else = {
-				create_diplomatic_pact = {
-					country = overlord
-					type = tributary
-				}
-			}	
-		}
 	}
 
 	complete = {
@@ -182,6 +123,7 @@ je_gie_retreat = {
 	}
 
 	fail = {
+		always = no
 	}
 
 	on_fail = {
@@ -189,30 +131,28 @@ je_gie_retreat = {
 	}
 	
 	on_complete = {
+		overlord = {
+			create_diplomatic_pact = {
+				country = root
+				type = gie_return_target
+			}
+		}
+		make_independent = yes
+		
 		add_journal_entry = {
 			type = je_gie_return
 		}
-		add_journal_entry = {
-			type = je_gie_annex_overseas_com
-		}
-		make_independent = yes
-	}
+		
+		#annexs all overseas land and deals with subjectss
+		trigger_event = gie_annex_overseas.3
 	
-	current_value = {
-
 	}
-
-	goal_add_value = {
-
-	}
-
-	progressbar = yes
 
 	weight = 10000
 	
 }
 
-#annexs the exiled gov to anex there old nations overseas land
+#annexs the exiled gov to annex there old nations and overseas land
 je_gie_annex_overseas_com = {
 	icon = "gfx/interface/icons/event_icons/event_election.dds"
 	
@@ -291,15 +231,16 @@ je_gie_return = {
 	#marks overload as the exiled gov target
 	#irish independence TODO move to a shattered nation event/je?
    immediate = {
-		overlord = {
+		random_country = {
+			limit = {
+				has_diplomatic_pact = {
+					who = root
+					type = gie_return_target
+				}
+			}
 			save_scope_as = return_target
 		}
-		overlord = {
-			create_diplomatic_pact = {
-				country = root
-				type = gie_return_target
-			}
-		}
+
 		#irish war
 		if = {
 			limit = { 
