@@ -1,5 +1,5 @@
 ﻿l_english:
-ct_low_war_support:0 "War support in the revolutionary struggle is less than -75%""
-ct_pact_return:0 "Has the diplomatic exiled government"
-ct_pact_humilation:0 "Has the diplomatic pact humiliation"
-ct_pact_return_subject:0 "Is a subject of a nation with a diplomatic exiled government"
+ ct_low_war_support:0 "War support in the revolutionary struggle is less than -75%"
+ ct_pact_return:0 "Has the diplomatic exiled government"
+ ct_pact_humilation:0 "Has the diplomatic pact humiliation"
+ ct_pact_return_subject:0 "Is a subject of a nation with a diplomatic exiled government"

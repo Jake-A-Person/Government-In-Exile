@@ -114,7 +114,7 @@ gie_exiled.1 = {
 
 	#create a new "free" gov in exile like free france
 	option = {
-		name = gie_exiled.1.d
+		name = gie_exiled.1.e
 		trigger = {
 			any_state = {
 				owner = root
@@ -170,7 +170,7 @@ gie_exiled.1 = {
 
 	#do nothing
 	option = {
-		name = gie_exiled.1.e
+		name = gie_exiled.1.g
 	}
 
 
