@@ -205,7 +205,7 @@ bic_breakup.1 = {
 
 	#fully moded to create a "domion" of india
 	option = {
-		name = bic_breakup.1.d
+		name = bic_breakup.1.e
 		highlighted_option = yes
 		trigger = {
 			has_technology_researched = pan-nationalism

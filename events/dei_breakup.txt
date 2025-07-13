@@ -159,7 +159,7 @@ dei_breakup.1 = {
 
 	#gov in exile
 	option = {
-		name = dei_breakup.1.d
+		name = dei_breakup.1.e
 		highlighted_option = yes
 		trigger = {
 			has_technology_researched = pan-nationalism
@@ -449,7 +449,7 @@ alk_breakup.1 = {
 
 	#gov in exile option
 	option = {
-		name = alk_breakup.1.f
+		name = alk_breakup.1.g
 		highlighted_option = yes
 		trigger = {
 			has_journal_entry = je_gie_return
