@@ -5,11 +5,11 @@
 bic_breakup.1 = {
 	type = country_event
 	placement = root
-	
+
 	title = bic_breakup.1.t
 	desc = bic_breakup.1.d
 	flavor = bic_breakup.1.f
-	
+
 	event_image = {
 		video = "asia_sepoy_mutiny"
 	}
@@ -17,14 +17,14 @@ bic_breakup.1 = {
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
 	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-	
+
 	duration = 3
-	
+
 	trigger = {
 		c:BIC ?= this
 		is_subject = no
 		is_at_war = no
-		NOT = {	
+		NOT = {
 			has_variable = bic_collapse_var
 		}
 	}
@@ -62,7 +62,7 @@ bic_breakup.1 = {
 				}
 			}
 			activate_law = law_type:law_oligarchy
-		}		
+		}
 		hidden_effect = {
 			remove_primary_culture = cu:british
 			add_primary_culture = cu:bengali
@@ -79,6 +79,18 @@ bic_breakup.1 = {
 					has_modifier = modifier_india_company_rule
 				}
 				remove_modifier = modifier_india_company_rule
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_india_company_rule_upgraded
+				}
+				remove_modifier = modifier_india_company_rule_upgraded
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_indian_imperial_police
+				}
+				remove_modifier = modifier_indian_imperial_police
 			}
 			recalculate_pop_ig_support = yes
 			every_scope_character = {
@@ -131,8 +143,8 @@ bic_breakup.1 = {
 				}
 				if = {
 					limit = {
-						religion_percent_country = {  
-							target = rel:hindu  
+						religion_percent_country = {
+							target = rel:hindu
 							value >= 0.5
 						}
 					}
@@ -140,7 +152,7 @@ bic_breakup.1 = {
 				}
 				else_if = {
 					limit = {
-						religion_percent_country = {  
+						religion_percent_country = {
 							target = rel:sunni
 							value >= 0.5
 						}
@@ -163,6 +175,18 @@ bic_breakup.1 = {
 					has_modifier = modifier_india_company_rule
 				}
 				remove_modifier = modifier_india_company_rule
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_india_company_rule_upgraded
+				}
+				remove_modifier = modifier_india_company_rule_upgraded
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_indian_imperial_police
+				}
+				remove_modifier = modifier_indian_imperial_police
 			}
 			recalculate_pop_ig_support = yes
 			every_scope_character = {
@@ -185,8 +209,6 @@ bic_breakup.1 = {
 		highlighted_option = yes
 		trigger = {
 			has_technology_researched = pan-nationalism
-			#moded fires if is a gov in exile
-			has_journal_entry = je_gie_return
 		}
 		ai_chance = {
 			#chose it if posible
@@ -194,6 +216,7 @@ bic_breakup.1 = {
 		}
 		change_tag = BHT
 		hidden_effect = {
+			#keep british pc as is a "dominion"
 			add_primary_culture = cu:bengali
 			add_primary_culture = cu:assamese
 			add_primary_culture = cu:avadhi
@@ -208,35 +231,9 @@ bic_breakup.1 = {
 			add_primary_culture = cu:sindi
 			add_primary_culture = cu:tamil
 			add_primary_culture = cu:telegu
-			if = {
-				limit = {
-					NOT = {
-						has_law = law_type:law_state_atheism
-					}
-				}
-				if = {
-					limit = {
-						religion_percent_country = {  
-							target = rel:hindu  
-							value >= 0.5
-						}
-					}
-					set_state_religion = rel:hindu
-				}
-				else_if = {
-					limit = {
-						religion_percent_country = {  
-							target = rel:sunni
-							value >= 0.5
-						}
-					}
-					set_state_religion = rel:sunni
-				}
-				else = {
-					set_state_religion = rel:hindu
-				}
-			}
-			india_independence_ig_effects = yes
+			#keep as protestant religon
+			#as we are not changing state religon
+
 			if = {
 				limit = {
 					has_modifier = modifier_india_crown_rule
@@ -248,6 +245,18 @@ bic_breakup.1 = {
 					has_modifier = modifier_india_company_rule
 				}
 				remove_modifier = modifier_india_company_rule
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_india_company_rule_upgraded
+				}
+				remove_modifier = modifier_india_company_rule_upgraded
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_indian_imperial_police
+				}
+				remove_modifier = modifier_indian_imperial_police
 			}
 			recalculate_pop_ig_support = yes
 		}
