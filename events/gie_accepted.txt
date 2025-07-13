@@ -1,4 +1,4 @@
-namespace = gie_accepted
+﻿namespace = gie_accepted
 
 #for each direct subjects that doesnt discriminate against at least one of this is PCs add modifier "accept_over_cult" on each of said subject
 gie_accepted.1 = {

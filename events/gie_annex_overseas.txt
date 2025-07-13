@@ -1,4 +1,4 @@
-namespace = gie_annex_overseas
+﻿namespace = gie_annex_overseas
 
 #marks states but doesnt annex them
 #run while still in civil war
