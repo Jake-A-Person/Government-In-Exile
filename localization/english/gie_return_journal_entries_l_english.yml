@@ -10,7 +10,7 @@ je_gie_return_reason:0 "Since we were diven out of our homeland we dreamed of re
 je_gie_return_target_civ_war:0 "Pretenders in revolution"
 je_gie_return_target_civ_war_reason:0 "Our former homeland is in revolution"
 je_gie_return_war:0 "War with the pretenders"
-je_gie_return_war:0 "We are waging a war to return to the homeland"
+je_gie_return_war_reason:0 "We are waging a war to return to the homeland"
 je_gie_africa_assim:0 "Cultural Re-Education Program"
 je_gie_africa_assim_reason:0 "We are in exile but that doesn't mean the ideals of the [SCOPE.sCulture('primary_culture_scope').GetName] culture will falter. So, me must teach the local population how to be taught how to properly conduct themselves. In the colonies a new [SCOPE.sCulture('primary_culture_scope').GetName] nation will arise. \n\nWhen has modifer "Cultural Re-Education" (from above button being on) 0.05% of discriminated pops befcomes [SCOPE.sCulture('primary_culture_scope').GetName] a week"
 je_gie_africa_reform_1:0 "Reform Land and Labor Rights"
