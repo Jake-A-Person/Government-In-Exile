@@ -35,16 +35,21 @@ gie_exiled.1 = {
 				#gets a subject that accepts at least the PC of the current nation
 				is_direct_subject_of = root
 				has_modifier = accept_over_cult
+				#ceylon will auto change to sri lanka on independence (swiching primary culture) so dont give it as an option
+				not = {this = c:BCE}
 			}
 			order_by = gdp	
 			this = {	
 				save_scope_as = option1
 			}
 		}
+
+		}
 		ordered_subject_or_below = {
 			limit = {
 				is_direct_subject_of = root
 				has_modifier = accept_over_cult
+				not = {this = c:BCE}
 		
 				not = { this = scope:option1}
 			}
@@ -57,6 +62,7 @@ gie_exiled.1 = {
 			limit = {
 				is_direct_subject_of = root
 				has_modifier = accept_over_cult
+				not = {this = c:BCE}
 
 				not = { this = scope:option1}
 				not = { this = scope:option2}
