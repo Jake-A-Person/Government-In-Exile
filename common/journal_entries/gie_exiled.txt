@@ -345,7 +345,7 @@ je_gie_return = {
 	
 	#return taget gets this nations laws
 	#return taget turns this nation into there puppet
-	#transfers ruler TODO hier event
+	#transfers ruler TODO heir event
 	on_complete = {
 		random_country = {
 			limit = {
