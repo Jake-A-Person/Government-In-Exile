@@ -354,6 +354,7 @@ je_gie_return = {
 					type = gie_return_target
 				}
 			}
+			save_scope_as = rev_gov
 			copy_laws = root
 			create_diplomatic_pact = {
 				country = root
@@ -365,10 +366,10 @@ je_gie_return = {
 			}
 			root = {
 				ruler = {
-					transfer_character = prevprev
+					transfer_character = scope:rev_gov
 					set_character_as_ruler = yes
 				}
-				play_as = prev
+				play_as = scope:rev_gov
 			}
 		}	
 	}
