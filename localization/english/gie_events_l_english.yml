@@ -25,7 +25,7 @@
  gie_exiled.3.b:0 "Accept their independence"
  
  gie_exiled.4.t:0 "Union In Exile"
- gie_exiled.4:f:0 "The government in exile wishes to unite the minority ruled African states."
- gie_exiled.4:d:0 "Should we accepet union with the government in exile."
- gie_exiled.4:a:0 "To hell with the government in exile"
- gie_exiled.4:b:0 "Unity shall forge a new [SCOPE.sCulture('primary_culture_scope').GetName] nation"
+ gie_exiled.4.f:0 "The government in exile wishes to unite the minority ruled African states."
+ gie_exiled.4.d:0 "Should we accepet union with the government in exile."
+ gie_exiled.4.a:0 "To hell with the government in exile"
+ gie_exiled.4.b:0 "Unity shall forge a new [SCOPE.sCulture('primary_culture_scope').GetName] nation"
