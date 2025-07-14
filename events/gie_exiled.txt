@@ -63,6 +63,10 @@ gie_exiled.1 = {
 			}
 			order_by = gdp		
 			save_scope_as = option3
+		}
+		every_direct_subject = {
+			limit = { is_subject_type = subject_type_chartered_company }
+			change_subject_type = subject_type_colony
 		}	
 	}
 

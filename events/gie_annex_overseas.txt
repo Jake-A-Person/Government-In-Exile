@@ -121,6 +121,7 @@ gie_annex_overseas.3 = {
 				}
 				not = {this = root}
 			}
+			save_scope_as = rev_gov
 			#exiled gov annex all states not connected to capital
 			every_scope_state = {
 				limit = {
@@ -142,7 +143,7 @@ gie_annex_overseas.3 = {
 					limit = {
 						has_modifier = adj
 					}
-					set_state_owner = prevprev
+					set_state_owner = scope:rev_gov
 					remove_modifier = adj
 				}
 
@@ -188,6 +189,32 @@ gie_annex_overseas.3 = {
 					}
 				}
 
+				if = {
+					limit = {
+						is_subject_type = subject_type_colony
+					}
+					make_independent = yes
+					root = {
+						create_diplomatic_pact = {
+							country = prev
+							type = colony
+						}
+					}
+				}
+
+				#TODO tranfer as chartered_company and move HQ
+				if = {
+					limit = {
+						is_subject_type = subject_type_chartered_company
+					}
+					make_independent = yes
+					root = {
+						create_diplomatic_pact = {
+							country = prev
+							type = colony
+						}
+					}
+				}
 				
 				if = {
 					limit = {
@@ -219,17 +246,17 @@ gie_annex_overseas.3 = {
 
 			#as all subjects not connected have been tranfered in above block these are only connected subjects
 			every_subject_or_below = {
-				#all states that are connected get annexed by exiled goverment
+				#all states that are not connected get annexed by exiled goverment
 				every_scope_state = {
 					limit = {
-						has_modifier = adj
+						not = {has_modifier = adj}
 					}
 					set_state_owner = root
 					remove_modifier = adj
 				}
 			}
 
-			#clean up modifers on sates
+			#clean up modifers on states
 			every_scope_state = {
 				remove_modifier = adj
 			}
