@@ -43,8 +43,6 @@ gie_exiled.1 = {
 				save_scope_as = option1
 			}
 		}
-
-		}
 		ordered_subject_or_below = {
 			limit = {
 				is_direct_subject_of = root
@@ -74,7 +72,16 @@ gie_exiled.1 = {
 		every_direct_subject = {
 			limit = { is_subject_type = subject_type_chartered_company }
 			change_subject_type = subject_type_colony
-		}	
+		}
+		#get 0.15% of population for AI evaluation
+			set_variable = {
+				name = var_min_pop
+				value = total_population
+			}
+			change_variable = {
+				name = var_min_pop
+				multiply = 0.15
+			}
 	}
 
 	option = {
@@ -91,6 +98,26 @@ gie_exiled.1 = {
 		trigger = {
 			exists = scope:option1
 		}
+
+		ai_chance = {
+			#best base chance
+			base = 400
+			#if is east india company then only do if option2 and option3 have too few pops
+			modifier = {
+				trigger = {
+					scope:option1 = c:BIC
+				}
+				add = -250
+			}
+			modifier = {
+				trigger = {
+					#less then 15% population
+					scope:option1.total_population < var_min_pop
+				}
+				#dont do
+				add = -400
+			}
+		}
 	}
 
 	option = {
@@ -106,6 +133,24 @@ gie_exiled.1 = {
 		trigger = {
 			exists = scope:option2
 		}
+		ai_chance = {
+			base = 300
+			modifier = {
+				trigger = {
+					scope:option2 = c:BIC
+				}
+				add = -150
+			}
+
+			modifier = {
+				trigger = {
+					#less then 15% population
+					scope:option1.total_population < var_min_pop
+				}
+
+				add = -300
+			}
+		}
 	}
 
 	option = {
@@ -120,6 +165,22 @@ gie_exiled.1 = {
 		}	
 		trigger = {
 			exists = scope:option3
+		}
+		ai_chance = {
+			base = 200
+			modifier = {
+				trigger = {
+					scope:option3 = c:BIC
+				}
+				add = -50
+			}
+			modifier = {
+				trigger = {
+					#less then 15% population
+					scope:option1.total_population < var_min_pop
+				}
+				add = -200
+			}
 		}
 	}
 
@@ -177,14 +238,20 @@ gie_exiled.1 = {
 				id = gie_exiled.2
 			}
 		}
+		#only do if all vaild subjects have less then 20% home land pop
+		ai_chance = {
+			base = 100
+		}
 	}
 
 	#do nothing
 	option = {
 		name = gie_exiled.1.g
+		#only do if no other options
+		ai_chance = {
+			base = 0
+		}
 	}
-
-
 }
 
 #arrive at colonial holding
