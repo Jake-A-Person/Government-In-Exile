@@ -323,31 +323,34 @@ gie_exiled.2 = {
 
 		overlord = {
 
-			ruler = {
-				save_scope_as = overlord_ruler
-			}
-
-			heir = {
-				save_scope_as = overlord_heir
-			}
-
+			#cant set an heir so have to kill to ruler if they have one
+			#has to happen immediate ot could happen after civil war end and ruler wound't change
 			if = {
-				#heir is handled by being killed or ruler killed in the bellow an event (idk how to make the hair of old nation the heir of a new nation)
+				limit = {
+					and = {
+						has_law = law_type:law_monarchy
+						exists = heir
+					}
+				}
+				heir = {
+					transfer_character = root
+					save_scope_as = new_ruler
+				}
+				ruler = {
+					kill_character = yes
+				}
+			}
+			else = {
+				ruler = {
+				transfer_character = root
+				save_scope_as = new_ruler
+				}
+			}
+			#set correct head of state law
+			if = {
 				limit = { has_law = law_type:law_monarchy }
 				ROOT = {
 					activate_law = law_type:law_monarchy
-					#change king to be somone else or will force nations into a persinal union
-					overlord = {
-						create_character = {
-							female = yes
-							religion = scope:state_religion_scope
-							ruler = yes
-							heir = no
-							age = 19
-							ideology = ideology:ideology_abolitionist
-							interest_group = ig_intelligentsia
-						}	
-					}
 				}
 			}
 			else_if = {
@@ -368,79 +371,24 @@ gie_exiled.2 = {
 					activate_law = law_type:law_theocracy
 				}
 			}
+			else_if = {
+				limit = {has_law = law_type:law_corporate_state }
+				ROOT = {
+					activate_law = law_type:law_corporate_state
+				}
+			}			
 			power_bloc ?= { add_leverage = { target = root value = -1000 } }
-		}
-	}
-
-	option = {
-		trigger = {
-			not = {
-				exists = scope:overlord_heir
-			}
-		}
-		name = gie_exiled.2.a
-		default_option = yes
-
-		
-		
-		overlord = {
-			scope:overlord_ruler = {
+			
+			scope:new_ruler = {
 				transfer_character = ROOT
 				set_character_as_ruler = yes
 			}
 		}
-
-		add_modifier = {
-			name = collapse_of_imp
-			years = 20
-			is_decaying = yes
-		}
-
-		add_journal_entry = {
-			type = je_gie_retreat
-		}
 	}
 
-	#king is dead
 	option = {
-		name = gie_exiled.2.b
+		name = gie_exiled.2.a
 		default_option = yes
-
-		trigger = {
-			exists = scope:overlord_heir
-		}
-		scope:overlord_ruler = {
-			kill_character = yes
-		}
-		scope:overlord_heir = {
-			transfer_character = ROOT
-			set_character_as_ruler = yes
-		}
-		add_modifier = {
-			name = collapse_of_imp
-			years = 20
-			is_decaying = yes
-		}
-
-		# add_journal_entry = {
-		# 	# type = je_gie_retreat
-		# }
-	}
-
-	#heir is dead
-	option = {
-		name = gie_exiled.2.c
-
-		trigger = {
-			exists = scope:overlord_heir
-		}
-		scope:overlord_ruler = {
-			transfer_character = ROOT
-			set_character_as_ruler = yes
-		}
-		scope:overlord_heir = {
-			kill_character = yes
-		}
 		add_modifier = {
 			name = collapse_of_imp
 			years = 20
@@ -449,7 +397,7 @@ gie_exiled.2 = {
 
 		add_journal_entry = {
 			type = je_gie_retreat
-		}	
+		}
 	}
 }
 

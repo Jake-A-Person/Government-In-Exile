@@ -11,12 +11,10 @@
  
  gie_exiled.2.t:0 "Arrived at [ROOT.GetCountry.GetName]"
  gie_exiled.2.f:0 "The ministers that survived the onslaught of the revolution have arrived."
- gie_exiled.2.f2:0 "King or heir."
+ gie_exiled.2.f2:0 "The Sovereign is dead."
  gie_exiled.2.d:0 "This new government is currently moving to assert authority over the colonies beyond the sea."
- gie_exiled.2.d2:0 "As [SCOPE.sCharacter('overlord_ruler').GetFullName] boarded the ship port a report was received that [SCOPE.sCharacter('overlord_heir').GetFullName] has been captured any rescue mission would require the use of the royal guard putting [SCOPE.sCharacter('overlord_ruler').GetFullName] in mortal danger."
+ gie_exiled.2.d2:0 "The Royal Guard was overwhelmed by a mob killing our Sovereign while boarding. Luckily [SCOPE.sCharacter('overlord_heir').GetFullName] managed to escape the mob and will lead us into the unknown and ultimately back home."
  gie_exiled.2.a:0 "Onwards"
- gie_exiled.2.b:0 "[SCOPE.sCharacter('overlord_heir').GetFullName] must be saved at all cost"
- gie_exiled.2.c:0 "[SCOPE.sCharacter('overlord_ruler').GetFullName] must live at all cost"
  
  gie_exiled.3.t:0 "The Irish Question"
  gie_exiled.3.f:0 "The long neglect of Ireland has led it to declare independence"
