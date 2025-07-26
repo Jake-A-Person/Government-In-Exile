@@ -1,3 +1,10 @@
 ﻿l_english:
  gie_return_target:0 "Goverment In Exile"
  gie_return_target_pact_desc:0 "[SCOPE.GetRootScope.GetDiplomaticPact.GetSecondCountry.GetName] is the government in exile of [SCOPE.GetRootScope.GetDiplomaticPact.GetFirstCountry.GetName]."
+ gie_return_target_desc:0 "If you are seeing this somthing as gone wrong, gie_return_target_desc"
+ gie_return_target_action_notification_name:0 "If you are seeing this somthing has gone wrong, gie_return_target_action_notification_name"
+ gie_return_target_action_notification_desc:0 "If you are seeing this somthing has gone wrong, gie_return_target_action_notification_desc"
+ gie_return_target_action_propose_name:0 "If you are seeing this somthing has gone wrong, gie_return_target_action_propose_name"
+ gie_return_target_action_break_name:0 "If you are seeing this somthing has gone wrong, gie_return_target_action_break_name"
+ gie_return_target_action_notification_break_name:0 "If you are seeing this somthing has gone wrong, gie_return_target_action_notification_break_name"
+ gie_return_target_action_notification_break_desc:0 "If you are seeing this somthing has gone wrong, gie_return_target_action_notification_break_desc"
