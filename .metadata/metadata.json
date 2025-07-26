@@ -2,7 +2,7 @@
   "name" : "Government In Exile",
   "id" : "government.in.exile",
   "short_description" : "Allows for the formation of governments in exile if nations fall to communism",
-  "supported_game_version" : "1.8.*",
+  "supported_game_version" : "1.9.*",
   "picture": "thumbnail.png",
   "tags" : ["Alternative History"],
   "game_custom_data" : {
@@ -12,6 +12,7 @@
 		"events/bic_breakup.txt",
 		"events/colonial_administration_events.txt",
 		"events/dei_breakup.txt",
+    "events/dei_breakup.txt",
 		"events/gie_annex_overseas.txt"
 	]
 }
