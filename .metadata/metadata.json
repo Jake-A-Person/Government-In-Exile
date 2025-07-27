@@ -2,6 +2,7 @@
   "name" : "Government In Exile",
   "id" : "government.in.exile",
   "short_description" : "Allows for the formation of governments in exile if nations fall to communism",
+  "version" : "1.1",
   "supported_game_version" : "1.9.*",
   "picture": "thumbnail.png",
   "tags" : ["Alternative History"],
