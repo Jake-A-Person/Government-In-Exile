@@ -73,15 +73,6 @@ gie_exiled.1 = {
 			limit = { is_subject_type = subject_type_chartered_company }
 			change_subject_type = subject_type_colony
 		}
-		#get 0.15% of population for AI evaluation
-			set_variable = {
-				name = var_min_pop
-				value = total_population
-			}
-			change_variable = {
-				name = var_min_pop
-				multiply = 0.15
-			}
 	}
 
 	option = {
@@ -109,14 +100,6 @@ gie_exiled.1 = {
 				}
 				add = -250
 			}
-			modifier = {
-				trigger = {
-					#less then 15% population
-					scope:option1.total_population < var_min_pop
-				}
-				#dont do
-				add = -400
-			}
 		}
 	}
 
@@ -141,15 +124,6 @@ gie_exiled.1 = {
 				}
 				add = -150
 			}
-
-			modifier = {
-				trigger = {
-					#less then 15% population
-					scope:option1.total_population < var_min_pop
-				}
-
-				add = -300
-			}
 		}
 	}
 
@@ -173,13 +147,6 @@ gie_exiled.1 = {
 					scope:option3 = c:BIC
 				}
 				add = -50
-			}
-			modifier = {
-				trigger = {
-					#less then 15% population
-					scope:option1.total_population < var_min_pop
-				}
-				add = -200
 			}
 		}
 	}
@@ -241,6 +208,9 @@ gie_exiled.1 = {
 		#only do if all vaild subjects have less then 20% home land pop
 		ai_chance = {
 			base = 100
+				add = 1000
+
+			}
 		}
 	}
 
